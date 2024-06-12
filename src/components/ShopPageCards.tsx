@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { PropsAPI } from '../types';
 import Card from './Card';
 import useAPIProducts from '../useAPIproducts';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const StyledCards = styled.div`
   display: flex;
@@ -25,10 +25,6 @@ const StyledCards = styled.div`
     color: black;
   }
 `;
-
-interface Props {
-  goods: PropsAPI[];
-}
 
 const Cards = () => {
   const params = useParams();

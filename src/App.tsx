@@ -2,7 +2,7 @@ import Navbar from './components/Navbar';
 import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer';
 import { useState } from 'react';
-import { PropsAPI, CartProps } from './types';
+import { CartProps } from './types';
 
 function App() {
   const [cartProducts, setCartProducts] = useState<CartProps[]>([]);

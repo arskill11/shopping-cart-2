@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import truckImg from '../assets/deliveryTruck2.png';
-import { useNavigate } from 'react-router-dom';
 
 const StyledGoods = styled.div`
   width: 100%;

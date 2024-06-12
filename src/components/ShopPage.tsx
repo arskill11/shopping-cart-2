@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { PropsAPI } from '../types';
-import { Link, NavLink, Outlet, useOutletContext } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 const StyledShopPage = styled.div`
   display: flex;

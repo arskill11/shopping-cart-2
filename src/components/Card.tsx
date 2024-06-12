@@ -89,8 +89,8 @@ interface Props {
   rating: number;
   id: number;
   quantity?: number;
-  cartProducts: CartProps[];
-  setCartProducts: React.Dispatch<React.SetStateAction<CartProps[]>>;
+  cartProducts?: CartProps[];
+  setCartProducts?: React.Dispatch<React.SetStateAction<CartProps[]>>;
 }
 
 const Card = ({
@@ -107,29 +107,35 @@ const Card = ({
     if (quantity === 1) {
       return;
     }
-    const nextProducts = cartProducts.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity - 1 };
-      } else {
-        return item;
-      }
-    });
-    setCartProducts(nextProducts);
+    if (cartProducts && setCartProducts) {
+      const nextProducts = cartProducts.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity - 1 };
+        } else {
+          return item;
+        }
+      });
+      setCartProducts(nextProducts);
+    }
   }
 
   function handleIncrease() {
-    const nextProducts = cartProducts.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity + 1 };
-      } else {
-        return item;
-      }
-    });
-    setCartProducts(nextProducts);
+    if (cartProducts && setCartProducts) {
+      const nextProducts = cartProducts.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          return item;
+        }
+      });
+      setCartProducts(nextProducts);
+    }
   }
 
   function handleDelete() {
-    setCartProducts(cartProducts.filter((item) => item.id !== id));
+    if (cartProducts && setCartProducts) {
+      setCartProducts(cartProducts.filter((item) => item.id !== id));
+    }
   }
 
   return (
