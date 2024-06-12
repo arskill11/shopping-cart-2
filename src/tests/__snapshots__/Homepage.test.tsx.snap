@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Homepage > renders correctly 1`] = `
+<div>
+  <div
+    class="sc-dcJtft dwqEEc"
+  >
+    <div
+      class="sc-fqkwJk UZDdN"
+    >
+      <div
+        class="blur-background"
+      >
+        <div
+          class="shopInfo"
+        >
+          <h1>
+            FakeShop
+          </h1>
+          <p>
+            This is a fake shop to sell some goods not sindg
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-gEvDqW kvkVsY"
+    >
+      <h2>
+        Our Featured Products!
+      </h2>
+      <div
+        class="cards"
+      />
+    </div>
+    <div
+      class="sc-eqUzNf egLVeV"
+    >
+      <img
+        alt=""
+        src="/src/assets/deliveryTruck2.png"
+      />
+      <div>
+        <h2>
+          Free Delivery
+        </h2>
+        <p>
+          We ship our goods for free regardlessly from your order sum
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
