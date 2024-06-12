@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { PropsAPI } from './types';
+import { ProductData } from '../types/types';
 
-function useAPIProducts(link: string) {
-  const [goods, setGoods] = useState<PropsAPI[]>([]);
+function useProductsQuery(link: string) {
+  const [goods, setGoods] = useState<ProductData[]>([]);
 
   useEffect(() => {
     const dataFetch = async () => {
       const data = await (await fetch(link)).json();
-      let goodsArr: PropsAPI[] = [];
+      let goodsArr: ProductData[] = [];
       if (data.length > 1) {
         goodsArr = Object.values(data);
       } else {
@@ -21,4 +21,4 @@ function useAPIProducts(link: string) {
   return goods;
 }
 
-export default useAPIProducts;
+export default useProductsQuery;

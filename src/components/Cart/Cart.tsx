@@ -1,34 +1,12 @@
 import { useOutletContext } from 'react-router-dom';
-import styled from 'styled-components';
-import { CartProps } from '../types';
-import Card from './Card';
-
-const StyledCart = styled.div`
-  height: 100vh;
-  background-color: lightgray;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h2 {
-    font-size: 40px;
-    padding-top: 120px;
-  }
-
-  div.products {
-    width: 100%;
-    justify-content: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 50px;
-    gap: 25px;
-  }
-`;
+import { CartData } from '../../shared/types/types';
+import { CartCard } from '../CartCard/';
+import StyledCart from './Cart.styles';
 
 const Cart = () => {
   const [cartProducts, setCartProducts]: [
-    CartProps[],
-    React.Dispatch<React.SetStateAction<CartProps[]>>,
+    CartData[],
+    React.Dispatch<React.SetStateAction<CartData[]>>,
   ] = useOutletContext();
 
   return (
@@ -36,7 +14,7 @@ const Cart = () => {
       <h2>Your cart</h2>
       <div className="products">
         {cartProducts.map((product) => (
-          <Card
+          <CartCard
             image={product.image}
             title={product.title}
             price={product.price}
@@ -52,4 +30,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export { Cart };

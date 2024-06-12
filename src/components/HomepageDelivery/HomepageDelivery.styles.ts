@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import truckImg from '../assets/deliveryTruck2.png';
 
-const StyledGoods = styled.div`
+const StyledDelivery = styled.div`
   width: 100%;
   height: 50vh;
   background: rgb(200, 200, 200);
@@ -31,16 +30,4 @@ const StyledGoods = styled.div`
   }
 `;
 
-const Delivery = () => {
-  return (
-    <StyledGoods>
-      <img src={truckImg} alt="" />
-      <div>
-        <h2>Free Delivery</h2>
-        <p>We ship our goods for free regardlessly from your order sum</p>
-      </div>
-    </StyledGoods>
-  );
-};
-
-export default Delivery;
+export default StyledDelivery;

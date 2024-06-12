@@ -1,11 +1,11 @@
-import Navbar from './components/Navbar';
 import { Outlet } from 'react-router-dom';
-import Footer from './components/Footer';
 import { useState } from 'react';
-import { CartProps } from './types';
+import { CartData } from './shared/types/types';
+import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
 
 function App() {
-  const [cartProducts, setCartProducts] = useState<CartProps[]>([]);
+  const [cartProducts, setCartProducts] = useState<CartData[]>([]);
   console.log(cartProducts);
 
   return (

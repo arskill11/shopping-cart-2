@@ -1,6 +1,6 @@
-import { CartProps } from './types';
+import { CartData } from '../types/types';
 
-function checkDuplication(array: CartProps[], product: CartProps) {
+function checkDuplication(array: CartData[], product: CartData) {
   const filtered = array.filter((item) => item.id !== product.id);
 
   if (filtered.length === array.length) return false;

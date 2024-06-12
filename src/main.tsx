@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { createGlobalStyle } from 'styled-components';
-import Homepage from './components/Homepage.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ShopPage from './components/ShopPage.tsx';
-import Product from './components/Product.tsx';
-import Cards from './components/ShopPageCards.tsx';
-import Cart from './components/Cart.tsx';
+
+import { Cart } from './components/Cart/';
+import { Homepage } from './components/Homepage/';
+import { Product } from './components/Product/';
+import { ShopPage } from './components/ShopPage/';
+import Cards from './components/ShopPageCardList/ShopPageCardList.tsx';
 
 const Global = createGlobalStyle`
 * {
@@ -16,14 +17,6 @@ const Global = createGlobalStyle`
   box-sizing: border-box;
 }
 `;
-
-// const AppWrapper = styled.div`
-//   background: lightgray;
-//   width: 100%;
-//   height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-// `;
 
 const router = createBrowserRouter([
   {

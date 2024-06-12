@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import sectionOneBackgr from '../assets/section1backgr.jpg';
+import sectionOneBackgr from '../../assets/section1backgr.jpg';
 
-const StyledInfo = styled.div`
+export const StyledInfo = styled.div`
   height: 100vh;
   background-image: url(${sectionOneBackgr});
   background-size: cover;
@@ -43,18 +43,3 @@ const StyledInfo = styled.div`
     text-align: center;
   }
 `;
-
-const Info = () => {
-  return (
-    <StyledInfo>
-      <div className="blur-background">
-        <div className="shopInfo">
-          <h1>FakeShop</h1>
-          <p>This is a fake shop to sell some goods not sindg</p>
-        </div>
-      </div>
-    </StyledInfo>
-  );
-};
-
-export default Info;

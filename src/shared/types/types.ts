@@ -3,7 +3,7 @@ interface Rating {
   count: number;
 }
 
-interface PropsAPI {
+interface ProductData {
   id: number;
   title: string;
   price: number;
@@ -13,13 +13,13 @@ interface PropsAPI {
   rating: Rating;
 }
 
-interface CartProps extends PropsAPI {
+interface CartData extends ProductData {
   quantity: number;
 }
 
 interface OutletProps {
-  cartProducts: CartProps[];
-  setCartProducts: React.Dispatch<React.SetStateAction<CartProps[]>>;
+  cartProducts: CartData[];
+  setCartProducts: React.Dispatch<React.SetStateAction<CartData[]>>;
 }
 
-export type { PropsAPI, CartProps, OutletProps };
+export type { ProductData, CartData, OutletProps };

@@ -1,35 +1,13 @@
-import styled from 'styled-components';
-import { PropsAPI } from '../types';
-import Card from './Card';
-import useAPIProducts from '../useAPIproducts';
+import { ProductData } from '../../shared/types/types';
+import useProductsQuery from '../../shared/hooks/useProductsQuery';
 import { useParams } from 'react-router-dom';
-
-const StyledCards = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: gray;
-  padding: 100px 0;
-  min-height: 70vh;
-
-  div.goods {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-  }
-
-  a {
-    width: 15%;
-    height: 90%;
-    text-decoration: none;
-    color: black;
-  }
-`;
+import { StyledCards } from './ShopPageCardList.styles';
+import { ShopPageCard } from '../ShopPageCard';
 
 const Cards = () => {
   const params = useParams();
   const url = params.category ? `category/${params.category}` : ``;
-  const goods: PropsAPI[] = useAPIProducts(
+  const goods: ProductData[] = useProductsQuery(
     `https://fakestoreapi.com/products/${url}`,
   );
 
@@ -37,7 +15,7 @@ const Cards = () => {
     <StyledCards>
       <div className="goods">
         {goods.map((good) => (
-          <Card
+          <ShopPageCard
             key={good.id}
             image={good.image}
             title={good.title}

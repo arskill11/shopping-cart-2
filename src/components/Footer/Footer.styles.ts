@@ -10,8 +10,4 @@ const StyledFooter = styled.footer`
   font-style: italic;
 `;
 
-const Footer = () => {
-  return <StyledFooter>Developed by 17thspring</StyledFooter>;
-};
-
-export default Footer;
+export default StyledFooter;
