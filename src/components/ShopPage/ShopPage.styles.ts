@@ -3,18 +3,16 @@ import styled from 'styled-components';
 export const StyledShopPage = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 
   div.shop {
-    height: 30vh;
+    min-height: 15vh;
     font-size: 50px;
     background-color: lightgray;
   }
 
   div.shop > h2 {
-    position: relative;
-    top: 50%;
-    left: 45%;
+    padding-top: 30px;
+    text-align: center;
   }
 `;
 
@@ -24,7 +22,7 @@ export const SubNavbar = styled.nav`
   padding: 35px;
   font-size: 30px;
   gap: 30px;
-  height: 10vh;
+  min-height: 10vh;
 
   a {
     text-decoration: none;
@@ -34,5 +32,9 @@ export const SubNavbar = styled.nav`
   a.active {
     font-size: 1.7rem;
     font-weight: bold;
+  }
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
   }
 `;

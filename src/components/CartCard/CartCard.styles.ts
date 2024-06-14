@@ -19,7 +19,7 @@ const StyledCard = styled.div`
   }
 
   img {
-    width: 40%;
+    width: 100px;
   }
 
   h3 {

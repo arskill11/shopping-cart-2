@@ -8,6 +8,7 @@ export const StyledCards = styled.div`
   min-height: 70vh;
 
   div.goods {
+    padding: 0 50px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

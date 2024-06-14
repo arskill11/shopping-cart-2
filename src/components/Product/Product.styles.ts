@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledProduct = styled.div`
   min-height: 100vh;
   background-color: rgb(230, 234, 254);
-  padding: 130px 50px;
+  padding: 50px;
 
   div.product {
     display: flex;
@@ -42,6 +42,11 @@ export const Button = styled.button`
   width: 20%;
   font-size: 1.4rem;
   cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: rgb(137, 155, 238);
+  }
 `;
 
 export const ButtonContainer = styled.div`

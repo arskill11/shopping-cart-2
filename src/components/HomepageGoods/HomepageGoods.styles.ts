@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 const StyledGoods = styled.div`
-  height: 60vh;
   background: rgb(220, 220, 220);
-  padding: 30px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -14,10 +13,11 @@ const StyledGoods = styled.div`
   }
 
   div.cards {
-    display: flex;
-    gap: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 350px);
+    gap: 50px;
+    justify-items: center;
     justify-content: center;
-    height: 80%;
   }
 
   a {

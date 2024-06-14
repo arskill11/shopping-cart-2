@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+export const CardWrapper = styled.div`
+  transition: 0.5s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  a {
+    width: 350px;
+  }
+`;
+
 export const StyledCard = styled.div`
   border-radius: 15px;
   box-shadow: 1px 1px darkgray;
@@ -17,7 +29,7 @@ export const StyledCard = styled.div`
   }
 
   img {
-    width: 40%;
+    width: 100px;
   }
 
   h3 {

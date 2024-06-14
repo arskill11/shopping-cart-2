@@ -2,25 +2,27 @@ import styled from 'styled-components';
 import sectionOneBackgr from '../../assets/section1backgr.jpg';
 
 export const StyledInfo = styled.div`
-  height: 100vh;
+  min-height: 90vh;
   background-image: url(${sectionOneBackgr});
   background-size: cover;
 
-  .blur-background {
-    background-color: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
-    height: inherit;
-  }
   .shopInfo {
     display: flex;
     flex-direction: column;
     gap: 20px;
     color: rgb(234, 234, 246);
-    width: 25%;
-    position: absolute;
-    top: 45%;
-    left: 15%;
+    width: 35%;
+    padding-top: 380px;
+    padding-left: 250px;
+
+    @media (max-width: 1200px) {
+      width: 60%;
+      padding-left: 50px;
+      padding-top: 40%;
+    }
+    @media (max-width: 600px) {
+      padding-top: 60%;
+    }
   }
   h1 {
     font-size: 70px;

@@ -1,17 +1,20 @@
 import styled from 'styled-components';
 
 export const StyledNavbar = styled.nav`
-  width: 100%;
   background: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 30px 50px;
-  position: fixed;
+  position: sticky;
   top: 0;
-  z-index: 1;
-
   h1 {
     font-size: 30px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px 15px;
+    flex-wrap: wrap;
   }
 `;
 
@@ -24,6 +27,7 @@ export const Button = styled.button`
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 10px;
+    transition: 0.6s;
   }
 
   a:hover {
@@ -60,6 +64,7 @@ export const LogoContainer = styled(ButtonContainer)`
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
+  transition: 0.6s;
 
   &:hover {
     background-color: lightgray;

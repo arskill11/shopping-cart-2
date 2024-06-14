@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledCart = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background-color: lightgray;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@ const StyledCart = styled.div`
 
   h2 {
     font-size: 40px;
-    padding-top: 120px;
+    padding-top: 20px;
   }
 
   div.products {
@@ -17,7 +17,7 @@ const StyledCart = styled.div`
     justify-content: flex-start;
     display: flex;
     flex-wrap: wrap;
-    padding: 50px;
+    padding: 50px 100px;
     gap: 25px;
   }
 `;

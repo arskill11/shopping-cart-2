@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledDelivery = styled.div`
   width: 100%;
-  height: 50vh;
+  min-height: 50vh;
   background: rgb(200, 200, 200);
   display: flex;
   justify-content: flex-end;
@@ -11,7 +11,6 @@ const StyledDelivery = styled.div`
 
   img {
     width: 30%;
-    scale: 0.8;
   }
   div {
     display: flex;
@@ -27,6 +26,25 @@ const StyledDelivery = styled.div`
   p {
     font-size: 35px;
     width: 60%;
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+
+    img {
+      width: 70%;
+    }
+    div {
+      width: 100%;
+      padding: 20px 0;
+    }
+    p,
+    h2 {
+      width: 100%;
+      padding: 0 20px;
+    }
   }
 `;
 
