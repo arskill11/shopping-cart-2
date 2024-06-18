@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledGoods = styled.div`
+export const StyledGoods = styled.div`
   background: rgb(220, 220, 220);
   padding: 50px;
   display: flex;
@@ -27,5 +27,3 @@ const StyledGoods = styled.div`
     color: black;
   }
 `;
-
-export default StyledGoods;

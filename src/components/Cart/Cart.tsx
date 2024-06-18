@@ -1,9 +1,9 @@
 import { useOutletContext } from 'react-router-dom';
 import { CartData } from '../../shared/types/types';
 import { CartCard } from '../CartCard/';
-import StyledCart from './Cart.styles';
+import { StyledCart } from './Cart.styles';
 
-const Cart = () => {
+export const Cart = () => {
   const [cartProducts, setCartProducts]: [
     CartData[],
     React.Dispatch<React.SetStateAction<CartData[]>>,
@@ -29,5 +29,3 @@ const Cart = () => {
     </StyledCart>
   );
 };
-
-export { Cart };

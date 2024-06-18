@@ -8,6 +8,7 @@ import { Cart } from './components/Cart/';
 import { Homepage } from './components/Homepage/';
 import { Product } from './components/Product/';
 import { ShopPage } from './components/ShopPage/';
+import { ErrorNotFound } from './components/ErrorNotFound';
 import Cards from './components/ShopPageCardList/ShopPageCardList.tsx';
 
 const Global = createGlobalStyle`
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorNotFound />,
     children: [
       { path: '', element: <Homepage /> },
       {

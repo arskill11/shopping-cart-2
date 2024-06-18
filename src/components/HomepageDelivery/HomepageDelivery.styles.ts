@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledDelivery = styled.div`
+export const StyledDelivery = styled.div`
   width: 100%;
   min-height: 50vh;
   background: rgb(200, 200, 200);
@@ -47,5 +47,3 @@ const StyledDelivery = styled.div`
     }
   }
 `;
-
-export default StyledDelivery;

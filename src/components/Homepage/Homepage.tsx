@@ -1,4 +1,4 @@
-import StyledHomepage from './Homepage.styles';
+import { StyledHomepage } from './Homepage.styles';
 import { HomepageDelivery } from '../HomepageDelivery';
 import { HomepageGoods } from '../HomepageGoods';
 import { HomepageInfo } from '../HomepageInfo';

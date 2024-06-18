@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledCart = styled.div`
+export const StyledCart = styled.div`
   min-height: 100vh;
   background-color: lightgray;
   display: flex;
@@ -21,5 +21,3 @@ const StyledCart = styled.div`
     gap: 25px;
   }
 `;
-
-export default StyledCart;

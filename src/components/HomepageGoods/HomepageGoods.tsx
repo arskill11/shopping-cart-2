@@ -1,4 +1,4 @@
-import StyledGoods from './HomepageGoods.styles';
+import { StyledGoods } from './HomepageGoods.styles';
 import { ProductData } from '../../shared/types/types';
 import { ShopPageCard } from '../ShopPageCard';
 

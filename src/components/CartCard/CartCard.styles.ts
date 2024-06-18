@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledCard = styled.div`
+export const StyledCard = styled.div`
   border-radius: 15px;
   box-shadow: 1px 1px darkgray;
   background: white;
@@ -72,5 +72,3 @@ const StyledCard = styled.div`
     cursor: pointer;
   }
 `;
-
-export default StyledCard;

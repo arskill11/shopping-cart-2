@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
 import { TiPlus, TiMinus } from 'react-icons/ti';
 import { CartData } from '../../shared/types/types';
-import StyledCard from './CartCard.styles';
+import { StyledCard } from './CartCard.styles';
 
 interface Props {
   image: string;
