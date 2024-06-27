@@ -6,6 +6,7 @@ export const StyledCards = styled.div`
   background-color: gray;
   padding: 100px 0;
   min-height: 70vh;
+  align-items: center;
 
   div.goods {
     padding: 0 50px;

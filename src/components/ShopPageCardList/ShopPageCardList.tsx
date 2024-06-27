@@ -3,30 +3,47 @@ import useProductsQuery from '../../shared/hooks/useProductsQuery';
 import { useParams } from 'react-router-dom';
 import { StyledCards } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
+import { Pagination } from '../Pagination';
+import { getProducts, getProductsByCategory } from '../../api/products';
+import { useState } from 'react';
 
-const Cards = () => {
+export const Cards = () => {
   const params = useParams();
-  const url = params.category ? `category/${params.category}` : ``;
-  const goods: ProductData[] = useProductsQuery(
-    `https://fakestoreapi.com/products/${url}`,
+  const category = params.category ? params.category : '';
+
+  const products: ProductData[] = useProductsQuery(
+    category ? getProductsByCategory : getProducts,
+    category,
   );
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [productsPerPage, setProductsPerPage] = useState(10);
+
+  const lastproductIndex = currentPage * productsPerPage;
+  const firstproductIndex = lastproductIndex - productsPerPage;
+  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <StyledCards>
       <div className="goods">
-        {goods.map((good) => (
+        {currentProduct.map((product) => (
           <ShopPageCard
-            key={good.id}
-            image={good.image}
-            title={good.title}
-            price={good.price}
-            rating={good.rating.rate}
-            id={good.id}
+            key={product.id}
+            image={product.image}
+            title={product.title}
+            price={product.price}
+            rating={product.rating.rate}
+            id={product.id}
           />
         ))}
       </div>
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={products.length}
+        paginate={paginate}
+      />
     </StyledCards>
   );
 };
-
-export default Cards;

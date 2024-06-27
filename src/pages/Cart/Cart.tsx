@@ -1,6 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import { CartData } from '../../shared/types/types';
-import { CartCard } from '../CartCard/';
+import { CartCard } from '../../components/CartCard';
 import { StyledCart } from './Cart.styles';
 
 export const Cart = () => {

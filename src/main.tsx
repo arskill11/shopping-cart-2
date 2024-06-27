@@ -4,12 +4,12 @@ import App from './App.tsx';
 import { createGlobalStyle } from 'styled-components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Cart } from './components/Cart/';
-import { Homepage } from './components/Homepage/';
-import { Product } from './components/Product/';
-import { ShopPage } from './components/ShopPage/';
-import { ErrorNotFound } from './components/ErrorNotFound';
-import Cards from './components/ShopPageCardList/ShopPageCardList.tsx';
+import { Cart } from './pages/Cart/';
+import { Homepage } from './pages/Homepage/';
+import { Product } from './pages/Product/';
+import { ShopPage } from './pages/ShopPage/';
+import { ErrorNotFound } from './pages/ErrorNotFound/';
+import { Cards } from './components/ShopPageCardList/';
 
 const Global = createGlobalStyle`
 * {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorNotFound />,
     children: [
-      { path: '', element: <Homepage /> },
+      { index: true, element: <Homepage /> },
       {
         path: 'shop',
         element: <ShopPage />,

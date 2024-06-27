@@ -1,9 +1,10 @@
 import { useOutletContext, useParams } from 'react-router-dom';
-import useAPIProducts from '../../shared/hooks/useProductsQuery';
+import useProductsQuery from '../../shared/hooks/useProductsQuery';
 import { useState } from 'react';
 import { CartData } from '../../shared/types/types';
 import { checkDuplication } from '../../shared/helpers/utility';
 import { Button, ButtonContainer, StyledProduct } from './Product.styles';
+import { getProducts, getProductsById } from '../../api/products';
 
 export const Product = () => {
   const params = useParams();
@@ -11,7 +12,10 @@ export const Product = () => {
     CartData[],
     React.Dispatch<React.SetStateAction<CartData[]>>,
   ] = useOutletContext();
-  const data = useAPIProducts(`https://fakestoreapi.com/products/${params.id}`);
+
+  const id = params.id ? params.id : '';
+
+  const data = useProductsQuery(params.id ? getProductsById : getProducts, id);
   const product: CartData = { ...data[0], quantity: 0 };
 
   const [counter, setCounter] = useState<number>(1);
@@ -46,8 +50,6 @@ export const Product = () => {
       setCartProducts(nextProducts);
     }
   }
-
-  console.log(cartProducts);
 
   return (
     <StyledProduct>

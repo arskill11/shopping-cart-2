@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { ProductData } from '../types/types';
 
-function useProductsQuery(link: string) {
+function useProductsQuery(
+  fetchFunction: (parameter: string) => Promise<Response>,
+  parameter: string,
+) {
   const [goods, setGoods] = useState<ProductData[]>([]);
 
   useEffect(() => {
     const dataFetch = async () => {
-      const data = await (await fetch(link)).json();
+      const response = await fetchFunction(parameter);
+      const data = await response.json();
       let goodsArr: ProductData[] = [];
       if (data.length > 1) {
         goodsArr = Object.values(data);
@@ -16,7 +20,7 @@ function useProductsQuery(link: string) {
       setGoods(goodsArr);
     };
     dataFetch();
-  }, [link]);
+  }, [parameter]);
 
   return goods;
 }
