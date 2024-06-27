@@ -37,20 +37,20 @@ export const Cards = () => {
   switch (sortCriteria) {
     case 'price': {
       if (sortParameter === 'ascending') {
-        products.sort((productA, productB) => productB.price - productA.price);
-      } else {
         products.sort((productA, productB) => productA.price - productB.price);
+      } else {
+        products.sort((productA, productB) => productB.price - productA.price);
       }
       break;
     }
     case 'rate': {
       if (sortParameter === 'ascending') {
         products.sort(
-          (productA, productB) => productB.rating.rate - productA.rating.rate,
+          (productA, productB) => productA.rating.rate - productB.rating.rate,
         );
       } else {
         products.sort(
-          (productA, productB) => productA.rating.rate - productB.rating.rate,
+          (productA, productB) => productB.rating.rate - productA.rating.rate,
         );
       }
       break;
