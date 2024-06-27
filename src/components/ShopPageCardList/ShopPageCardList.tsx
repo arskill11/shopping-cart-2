@@ -21,7 +21,7 @@ export const Cards = () => {
   );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage, setProductsPerPage] = useState(10);
+  const [productsPerPage] = useState(10);
 
   const lastproductIndex = currentPage * productsPerPage;
   const firstproductIndex = lastproductIndex - productsPerPage;
