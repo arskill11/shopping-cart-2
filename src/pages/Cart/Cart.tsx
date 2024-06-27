@@ -1,7 +1,8 @@
 import { useOutletContext } from 'react-router-dom';
 import { CartData } from '../../shared/types/types';
 import { CartCard } from '../../components/CartCard';
-import { StyledCart } from './Cart.styles';
+import { SendingPage, StyledCart } from './Cart.styles';
+import { useMemo, useState } from 'react';
 
 export const Cart = () => {
   const [cartProducts, setCartProducts]: [
@@ -9,7 +10,24 @@ export const Cart = () => {
     React.Dispatch<React.SetStateAction<CartData[]>>,
   ] = useOutletContext();
 
-  return (
+  let totalValue = 0;
+
+  useMemo(() => {
+    for (let i = 0; i < cartProducts.length; i++) {
+      totalValue += cartProducts[i].price * cartProducts[i].quantity;
+    }
+  }, [cartProducts]);
+
+  const [isSent, setIsSent] = useState(false);
+
+  function handleClick() {
+    setIsSent(true);
+    setTimeout(() => setIsSent(false), 2000);
+    const emptyProducts: CartData[] = [];
+    setCartProducts(emptyProducts);
+  }
+
+  return !isSent ? (
     <StyledCart>
       <h2>Your cart</h2>
       <div className="products">
@@ -26,6 +44,20 @@ export const Cart = () => {
           />
         ))}
       </div>
+      {cartProducts.length > 0 ? (
+        <div className="checkout">
+          <h3>Your total is {totalValue} USD</h3>
+          <button className="checkoutButton" onClick={handleClick}>
+            Check Out
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </StyledCart>
+  ) : (
+    <SendingPage>
+      <h3>THANKS FOR YOUR PURCHASE</h3>
+    </SendingPage>
   );
 };

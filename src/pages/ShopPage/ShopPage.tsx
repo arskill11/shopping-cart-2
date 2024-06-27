@@ -5,9 +5,8 @@ import { HiSortAscending, HiSortDescending } from 'react-icons/hi';
 import { SortCriteria, SortParameters } from '../../shared/types/types';
 
 export const ShopPage = () => {
-  const [sortCriteria, setSortCriteria] = useState<SortCriteria>('rate');
-  const [sortParameter, setSortParameter] =
-    useState<SortParameters>('ascending');
+  const [sortCriteria, setSortCriteria] = useState<SortCriteria>(null);
+  const [sortParameter, setSortParameter] = useState<SortParameters>(null);
 
   return (
     <StyledShopPage>

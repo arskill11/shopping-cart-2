@@ -23,7 +23,7 @@ interface OutletProps {
 }
 
 type SortCriteria = 'price' | 'rate' | null;
-type SortParameters = 'ascending' | 'descending';
+type SortParameters = 'ascending' | 'descending' | null;
 
 export type {
   ProductData,

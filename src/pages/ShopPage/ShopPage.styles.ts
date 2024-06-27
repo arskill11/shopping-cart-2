@@ -58,6 +58,7 @@ export const SortingBar = styled.div`
     font-size: 25px;
     padding: 6px;
     border-radius: 15px;
+    transition: 0.3s;
   }
 
   button.sortParameter {
