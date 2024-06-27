@@ -22,4 +22,13 @@ interface OutletProps {
   setCartProducts: React.Dispatch<React.SetStateAction<CartData[]>>;
 }
 
-export type { ProductData, CartData, OutletProps };
+type SortCriteria = 'price' | 'rate' | null;
+type SortParameters = 'ascending' | 'descending';
+
+export type {
+  ProductData,
+  CartData,
+  OutletProps,
+  SortCriteria,
+  SortParameters,
+};

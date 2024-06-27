@@ -1,6 +1,10 @@
-import { ProductData } from '../../shared/types/types';
+import {
+  ProductData,
+  SortCriteria,
+  SortParameters,
+} from '../../shared/types/types';
 import useProductsQuery from '../../shared/hooks/useProductsQuery';
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { StyledCards } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
 import { Pagination } from '../Pagination';
@@ -21,9 +25,39 @@ export const Cards = () => {
 
   const lastproductIndex = currentPage * productsPerPage;
   const firstproductIndex = lastproductIndex - productsPerPage;
-  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const [sortCriteria, sortParameter]: [SortCriteria, SortParameters] =
+    useOutletContext();
+
+  switch (sortCriteria) {
+    case 'price': {
+      if (sortParameter === 'ascending') {
+        products.sort((productA, productB) => productA.price - productB.price);
+      } else {
+        products.sort((productA, productB) => productB.price - productA.price);
+      }
+      break;
+    }
+    case 'rate': {
+      if (sortParameter === 'ascending') {
+        products.sort(
+          (productA, productB) => productA.rating.rate - productB.rating.rate,
+        );
+      } else {
+        products.sort(
+          (productA, productB) => productB.rating.rate - productA.rating.rate,
+        );
+      }
+      break;
+    }
+    default: {
+      console.log('no such an option');
+      break;
+    }
+  }
+  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
 
   return (
     <StyledCards>

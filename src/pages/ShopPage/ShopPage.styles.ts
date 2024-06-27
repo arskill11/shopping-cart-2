@@ -19,7 +19,7 @@ export const StyledShopPage = styled.div`
 export const SubNavbar = styled.nav`
   display: flex;
   justify-content: flex-start;
-  padding: 35px;
+  padding: 35px 35px 0px 35px;
   font-size: 30px;
   gap: 30px;
   min-height: 10vh;
@@ -36,5 +36,43 @@ export const SubNavbar = styled.nav`
 
   @media (max-width: 1024px) {
     flex-wrap: wrap;
+  }
+`;
+
+export const SortingBar = styled.div`
+  padding: 10px 35px;
+  font-size: 25px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+
+  div.sortParameterButtons,
+  div.sortCriteriaButtons {
+    display: flex;
+    gap: 15px;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    padding: 6px;
+    border-radius: 15px;
+  }
+
+  button.sortParameter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button:hover {
+    background-color: lightgray;
+  }
+
+  button.sortParameter.active,
+  button.sortButton.active {
+    background-color: lightgray;
+    font-weight: bold;
   }
 `;
