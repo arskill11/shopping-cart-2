@@ -77,6 +77,7 @@ export const Cards = () => {
         productsPerPage={productsPerPage}
         totalProducts={products.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </StyledCards>
   );

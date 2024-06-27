@@ -13,9 +13,9 @@ export const StyledPagination = styled.div`
     min-width: 50px;
     min-height: 50px;
     list-style-type: none;
-    border: 1px solid black;
-    font-size: 20px;
-    background-color: lightgray;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
   }
 
   li > button {
@@ -24,5 +24,18 @@ export const StyledPagination = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+    background-color: whitee;
+    font-size: 20px;
+    transition: 0.2s;
+  }
+
+  li > button:hover {
+    background-color: lightgray;
+  }
+
+  li > button.active {
+    background-color: darkgray;
+    color: white;
   }
 `;

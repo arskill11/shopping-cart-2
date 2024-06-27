@@ -4,12 +4,14 @@ interface Props {
   productsPerPage: number;
   totalProducts: number;
   paginate: (pageNumber: number) => void;
+  currentPage: number;
 }
 
 export const Pagination = ({
   productsPerPage,
   totalProducts,
   paginate,
+  currentPage,
 }: Props) => {
   const pageNumbers: number[] = [];
 
@@ -22,7 +24,12 @@ export const Pagination = ({
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number}>
-            <button onClick={() => paginate(number)}>{number}</button>
+            <button
+              onClick={() => paginate(number)}
+              className={number === currentPage ? 'active' : ''}
+            >
+              {number}
+            </button>
           </li>
         ))}
       </ul>

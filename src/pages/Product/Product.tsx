@@ -54,7 +54,7 @@ export const Product = () => {
   return (
     <StyledProduct>
       {data.map((item) => (
-        <div className="product">
+        <div className="product" key={item.title}>
           <div className="image">
             <img src={item.image} alt="" />
           </div>
