@@ -6,7 +6,6 @@ import { Navbar } from './components/Navbar';
 
 function App() {
   const [cartProducts, setCartProducts] = useState<CartData[]>([]);
-  console.log(cartProducts);
 
   return (
     <div>

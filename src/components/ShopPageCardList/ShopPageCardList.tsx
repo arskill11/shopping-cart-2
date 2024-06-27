@@ -28,8 +28,11 @@ export const Cards = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const [sortCriteria, sortParameter]: [SortCriteria, SortParameters] =
-    useOutletContext();
+  const [sortCriteria, sortParameter, inputValue]: [
+    SortCriteria,
+    SortParameters,
+    string,
+  ] = useOutletContext();
 
   switch (sortCriteria) {
     case 'price': {
@@ -53,11 +56,17 @@ export const Cards = () => {
       break;
     }
     default: {
-      console.log('no such an option');
       break;
     }
   }
-  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
+
+  const filteredProducts = products.filter((product) => {
+    return product.title.toLowerCase().includes(inputValue);
+  });
+  const currentProduct = filteredProducts.slice(
+    firstproductIndex,
+    lastproductIndex,
+  );
 
   return (
     <StyledCards>
@@ -75,7 +84,7 @@ export const Cards = () => {
       </div>
       <Pagination
         productsPerPage={productsPerPage}
-        totalProducts={products.length}
+        totalProducts={filteredProducts.length}
         paginate={paginate}
         currentPage={currentPage}
       />

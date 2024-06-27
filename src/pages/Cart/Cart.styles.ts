@@ -40,6 +40,7 @@ export const StyledCart = styled.div`
     border-radius: 15px;
     border: none;
     transition: 0.3s;
+    cursor: pointer;
   }
 
   div.checkout>button: hover {

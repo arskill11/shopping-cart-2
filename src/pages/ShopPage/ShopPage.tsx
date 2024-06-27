@@ -1,32 +1,67 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { SortingBar, StyledShopPage, SubNavbar } from './ShopPage.styles';
-import { useState } from 'react';
+import {
+  SearchBar,
+  SortingBar,
+  StyledShopPage,
+  SubNavbar,
+} from './ShopPage.styles';
+import { useRef, useState } from 'react';
 import { HiSortAscending, HiSortDescending } from 'react-icons/hi';
 import { SortCriteria, SortParameters } from '../../shared/types/types';
 
 export const ShopPage = () => {
   const [sortCriteria, setSortCriteria] = useState<SortCriteria>(null);
   const [sortParameter, setSortParameter] = useState<SortParameters>(null);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setInputValue(inputRef.current ? inputRef.current.value : '');
+  }
+
+  function clearInput() {
+    setInputValue('');
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+  }
 
   return (
     <StyledShopPage>
       <div className="shop">
         <h2>SHOP</h2>
       </div>
-      <SubNavbar>
-        <Link to={'/shop'}>All</Link>
-        <NavLink
-          to={"/shop/category/women's clothing"}
-          className={({ isActive }) => {
-            return isActive ? 'active' : '';
-          }}
-        >
-          Women's clothing
-        </NavLink>
-        <NavLink to={"/shop/category/men's clothing"}>Men's clothing</NavLink>
-        <NavLink to={'/shop/category/jewelery'}>Jewelery</NavLink>
-        <NavLink to={'/shop/category/electronics'}>Electronics</NavLink>
-      </SubNavbar>
+      <div className="SubNSearchBars">
+        <SubNavbar>
+          <Link to={'/shop'}>All</Link>
+          <NavLink
+            to={"/shop/category/women's clothing"}
+            className={({ isActive }) => {
+              return isActive ? 'active' : '';
+            }}
+            onClick={clearInput}
+          >
+            Women's clothing
+          </NavLink>
+          <NavLink to={"/shop/category/men's clothing"} onClick={clearInput}>
+            Men's clothing
+          </NavLink>
+          <NavLink to={'/shop/category/jewelery'} onClick={clearInput}>
+            Jewelery
+          </NavLink>
+          <NavLink to={'/shop/category/electronics'} onClick={clearInput}>
+            Electronics
+          </NavLink>
+        </SubNavbar>
+        <SearchBar>
+          <input type="text" placeholder="Search..." ref={inputRef} />
+          <button type="submit" onClick={handleClick}>
+            Submit
+          </button>
+        </SearchBar>
+      </div>
       <SortingBar>
         <p>Sort by: </p>
         <div className="sortCriteriaButtons">
@@ -70,7 +105,7 @@ export const ShopPage = () => {
           </button>
         </div>
       </SortingBar>
-      <Outlet context={[sortCriteria, sortParameter]} />
+      <Outlet context={[sortCriteria, sortParameter, inputValue]} />
     </StyledShopPage>
   );
 };

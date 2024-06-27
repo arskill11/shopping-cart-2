@@ -28,6 +28,7 @@ export const StyledPagination = styled.div`
     background-color: whitee;
     font-size: 20px;
     transition: 0.2s;
+    cursor: pointer;
   }
 
   li > button:hover {

@@ -46,7 +46,7 @@ export const Cart = () => {
       </div>
       {cartProducts.length > 0 ? (
         <div className="checkout">
-          <h3>Your total is {totalValue} USD</h3>
+          <h3>Your total is {totalValue.toFixed(2)} USD</h3>
           <button className="checkoutButton" onClick={handleClick}>
             Check Out
           </button>
