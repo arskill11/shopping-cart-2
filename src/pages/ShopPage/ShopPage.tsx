@@ -35,7 +35,9 @@ export const ShopPage = () => {
       </div>
       <div className="SubNSearchBars">
         <SubNavbar>
-          <Link to={'/shop'}>All</Link>
+          <Link to={'/shop'} onClick={clearInput}>
+            All
+          </Link>
           <NavLink
             to={"/shop/category/women's clothing"}
             className={({ isActive }) => {
