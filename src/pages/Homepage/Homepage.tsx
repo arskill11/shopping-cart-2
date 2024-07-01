@@ -6,12 +6,12 @@ import useProductsQuery from '../../shared/hooks/useProductsQuery';
 import { getLimitedProducts } from '../../api/products';
 
 export const Homepage = () => {
-  const goods = useProductsQuery(getLimitedProducts, '');
+  const products = useProductsQuery(getLimitedProducts, '');
 
   return (
     <StyledHomepage>
       <HomepageInfo />
-      <HomepageGoods goods={goods} />
+      <HomepageGoods products={products} />
       <HomepageDelivery />
     </StyledHomepage>
   );

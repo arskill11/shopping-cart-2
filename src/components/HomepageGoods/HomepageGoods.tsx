@@ -3,22 +3,26 @@ import { ProductData } from '../../shared/types/types';
 import { ShopPageCard } from '../ShopPageCard';
 
 interface Props {
-  goods: ProductData[];
+  products: ProductData[];
 }
 
-export const HomepageGoods = ({ goods }: Props) => {
+export const HomepageGoods = ({ products }: Props) => {
   return (
     <StyledGoods>
       <h2>Our Featured Products!</h2>
       <div className="cards">
-        {goods.map((good) => (
+        {products.map((product) => (
           <ShopPageCard
-            key={good.id}
-            image={good.image}
-            title={good.title}
-            price={good.price}
-            rating={good.rating.rate}
-            id={good.id}
+            key={product.id}
+            image={
+              typeof product.images === 'string'
+                ? product.images
+                : JSON.parse(product.images)[0]
+            }
+            title={product.title}
+            price={product.price}
+            category={product.category.name}
+            id={product.id}
           />
         ))}
       </div>

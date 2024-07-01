@@ -5,11 +5,12 @@ interface Props {
   image: string;
   title: string;
   price: number;
-  rating: number;
+  // rating: number;
   id: number;
+  category: string;
 }
 
-export const ShopPageCard = ({ image, title, price, rating, id }: Props) => {
+export const ShopPageCard = ({ image, title, price, category, id }: Props) => {
   return (
     <CardWrapper>
       <Link to={`/product/${id}`} data-testid={id}>
@@ -19,7 +20,8 @@ export const ShopPageCard = ({ image, title, price, rating, id }: Props) => {
           </div>
           <h3>{title}</h3>
           <p className="price">$ {price}</p>
-          <p className="rating">rating: {rating}</p>
+          {/* <p className="rating">rating: {rating}</p> */}
+          <p>{category}</p>
         </StyledCard>
       </Link>
     </CardWrapper>

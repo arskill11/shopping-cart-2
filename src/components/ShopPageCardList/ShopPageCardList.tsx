@@ -1,10 +1,6 @@
-import {
-  ProductData,
-  SortCriteria,
-  SortParameters,
-} from '../../shared/types/types';
+import { ProductData } from '../../shared/types/types';
 import useProductsQuery from '../../shared/hooks/useProductsQuery';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { StyledCards } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
 import { Pagination } from '../Pagination';
@@ -27,46 +23,7 @@ export const Cards = () => {
   const firstproductIndex = lastproductIndex - productsPerPage;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const [sortCriteria, sortParameter, inputValue]: [
-    SortCriteria,
-    SortParameters,
-    string,
-  ] = useOutletContext();
-
-  switch (sortCriteria) {
-    case 'price': {
-      if (sortParameter === 'ascending') {
-        products.sort((productA, productB) => productA.price - productB.price);
-      } else {
-        products.sort((productA, productB) => productB.price - productA.price);
-      }
-      break;
-    }
-    case 'rate': {
-      if (sortParameter === 'ascending') {
-        products.sort(
-          (productA, productB) => productA.rating.rate - productB.rating.rate,
-        );
-      } else {
-        products.sort(
-          (productA, productB) => productB.rating.rate - productA.rating.rate,
-        );
-      }
-      break;
-    }
-    default: {
-      break;
-    }
-  }
-
-  const filteredProducts = products.filter((product) => {
-    return product.title.toLowerCase().includes(inputValue);
-  });
-  const currentProduct = filteredProducts.slice(
-    firstproductIndex,
-    lastproductIndex,
-  );
+  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
 
   return (
     <StyledCards>
@@ -74,17 +31,21 @@ export const Cards = () => {
         {currentProduct.map((product) => (
           <ShopPageCard
             key={product.id}
-            image={product.image}
+            image={
+              typeof product.images === 'string'
+                ? product.images
+                : JSON.parse(product.images)[0]
+            }
             title={product.title}
             price={product.price}
-            rating={product.rating.rate}
             id={product.id}
+            category={product.category.name}
           />
         ))}
       </div>
       <Pagination
         productsPerPage={productsPerPage}
-        totalProducts={filteredProducts.length}
+        totalProducts={products.length}
         paginate={paginate}
         currentPage={currentPage}
       />

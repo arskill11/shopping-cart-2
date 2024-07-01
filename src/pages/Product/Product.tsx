@@ -13,7 +13,7 @@ export const Product = () => {
     React.Dispatch<React.SetStateAction<CartData[]>>,
   ] = useOutletContext();
 
-  const id = params.id ? params.id : '';
+  const id = params.id ? params.id : '1';
 
   const data = useProductsQuery(params.id ? getProductsById : getProducts, id);
   const product: CartData = { ...data[0], quantity: 0 };
@@ -56,7 +56,7 @@ export const Product = () => {
       {data.map((item) => (
         <div className="product" key={item.title}>
           <div className="image">
-            <img src={item.image} alt="" />
+            <img src={JSON.parse(item.images)[0]} alt="" />
           </div>
           <h3>{item.title}</h3>
           <p>USD {item.price}</p>

@@ -8,7 +8,8 @@ interface Props {
   image: string;
   title: string;
   price: number;
-  rating: number;
+  // rating: number;
+  category: string;
   id: number;
   quantity?: number;
   cartProducts?: CartData[];
@@ -19,7 +20,7 @@ export const CartCard = ({
   image,
   title,
   price,
-  rating,
+  category,
   id,
   quantity,
   cartProducts,
@@ -68,7 +69,7 @@ export const CartCard = ({
         </div>
         <h3>{title}</h3>
         <p className="price">$ {price}</p>
-        <p className="rating">rating: {rating}</p>
+        <p className="rating">category: {category}</p>
       </Link>
       <div className="manageButtons">
         <div className="quantityButtons">
