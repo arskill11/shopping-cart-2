@@ -11,6 +11,7 @@ export const HomepageInfo = () => {
             fakestoreapi
           </strong>
         </p>
+        <button>POST</button>
       </div>
     </StyledInfo>
   );

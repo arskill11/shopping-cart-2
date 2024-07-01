@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CartData } from '../../shared/types/types';
 import { checkDuplication } from '../../shared/helpers/utility';
 import { Button, ButtonContainer, StyledProduct } from './Product.styles';
-import { getProducts, getProductsById } from '../../api/products';
+import { getProductsById } from '../../api/products';
 
 export const Product = () => {
   const params = useParams();
@@ -13,9 +13,9 @@ export const Product = () => {
     React.Dispatch<React.SetStateAction<CartData[]>>,
   ] = useOutletContext();
 
-  const id = params.id ? params.id : '1';
+  const id = params.id as string;
 
-  const data = useProductsQuery(params.id ? getProductsById : getProducts, id);
+  const data = useProductsQuery(getProductsById, id);
   const product: CartData = { ...data[0], quantity: 0 };
 
   const [counter, setCounter] = useState<number>(1);
