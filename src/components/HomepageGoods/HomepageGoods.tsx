@@ -15,9 +15,10 @@ export const HomepageGoods = ({ products }: Props) => {
           <ShopPageCard
             key={product.id}
             image={
-              typeof product.images === 'string'
-                ? product.images
-                : JSON.parse(product.images)[0]
+              product.images[0]
+              // typeof product.images === 'string'
+              //   ? product.images
+              //   : JSON.parse(product.image)[0]
             }
             title={product.title}
             price={product.price}

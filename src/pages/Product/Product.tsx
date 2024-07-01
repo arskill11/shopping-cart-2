@@ -56,7 +56,7 @@ export const Product = () => {
       {data.map((item) => (
         <div className="product" key={item.title}>
           <div className="image">
-            <img src={JSON.parse(item.images)[0]} alt="" />
+            <img src={item.images[0]} alt="" />
           </div>
           <h3>{item.title}</h3>
           <p>USD {item.price}</p>

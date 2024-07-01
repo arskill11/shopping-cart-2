@@ -15,7 +15,7 @@ interface ProductData {
   price: number;
   description: string;
   category: Category;
-  images: string;
+  images: string[];
   // rating: Rating;
 }
 

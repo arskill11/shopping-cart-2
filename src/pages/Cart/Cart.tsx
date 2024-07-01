@@ -33,7 +33,7 @@ export const Cart = () => {
       <div className="products">
         {cartProducts.map((product) => (
           <CartCard
-            image={JSON.parse(product.images)[0]}
+            image={product.images[0]}
             title={product.title}
             price={product.price}
             category={product.category.name}
