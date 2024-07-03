@@ -5,18 +5,13 @@ import { checkDuplication } from '../../shared/helpers/utility';
 import { Button, ButtonContainer, StyledProduct } from './Product.styles';
 import { getProductsById } from '../../api/products';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
-import {
-  decrement,
-  increment,
-  setValue,
-} from '../../state/quantityCounter/quantityCounter.slice';
+import { RootState } from '../../store/store';
 import {
   addNewProduct,
   changeQuantity,
   incrementQuantityByNumber,
-} from '../../state/cartProducts/cartProducts.slice';
-import { useEffect } from 'react';
+} from '../../store/cartProducts/cartProducts.slice';
+import { useEffect, useState } from 'react';
 
 export const Product = () => {
   const params = useParams();
@@ -25,31 +20,26 @@ export const Product = () => {
   const cartProducts: CartData[] = useSelector(
     (state: RootState) => state.cartProducts,
   );
-  const quantityCounter: number = useSelector(
-    (state: RootState) => state.quantityCounter.value,
-  );
   const dispatch = useDispatch();
 
   const data = useProductsQuery(getProductsById, id);
   const product: CartData = { ...data[0], quantity: 0 };
 
-  useEffect(() => {
-    dispatch(setValue(1));
-  }, []);
+  const [counter, setCounter] = useState<number>(1);
 
   function handleDecrease() {
-    if (quantityCounter === 1) {
+    if (counter === 1) {
       return;
     }
-    dispatch(decrement());
+    setCounter(counter - 1);
   }
 
   function handleIncrease() {
-    dispatch(increment());
+    setCounter(counter + 1);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setValue(+e.target.value));
+    setCounter(+e.target.value);
   }
 
   function handleClick() {
@@ -58,7 +48,7 @@ export const Product = () => {
         dispatch(
           incrementQuantityByNumber({
             id: product.id,
-            amount: quantityCounter,
+            amount: counter,
           }),
         );
       } else {
@@ -69,7 +59,7 @@ export const Product = () => {
     if (!checkDuplication(cartProducts, product)) {
       dispatch(addNewProduct(product));
 
-      dispatch(changeQuantity({ id: product.id, quantity: quantityCounter }));
+      dispatch(changeQuantity({ id: product.id, quantity: counter }));
     } else {
       console.log(cartProducts);
 
@@ -95,7 +85,7 @@ export const Product = () => {
                 min={0}
                 max={25}
                 onChange={handleChange}
-                value={quantityCounter}
+                value={counter}
               />
               <button onClick={handleIncrease}>+</button>
             </div>

@@ -8,7 +8,7 @@ import {
   StyledNavbar,
 } from './Navbar.styles';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
+import { RootState } from '../../store/store';
 
 export const Navbar = () => {
   const cartProducts: CartData[] = useSelector(

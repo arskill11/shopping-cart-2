@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { store } from './state/store.ts';
+import { store } from './store/store.ts';
 
 import { Cart } from './pages/Cart/';
 import { Homepage } from './pages/Homepage/';

@@ -2,8 +2,8 @@ import { CartCard } from '../../components/CartCard';
 import { SendingPage, StyledCart } from './Cart.styles';
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
-import { clearCart } from '../../state/cartProducts/cartProducts.slice';
+import { RootState } from '../../store/store';
+import { clearCart } from '../../store/cartProducts/cartProducts.slice';
 
 export const Cart = () => {
   const cartProducts = useSelector((state: RootState) => state.cartProducts);

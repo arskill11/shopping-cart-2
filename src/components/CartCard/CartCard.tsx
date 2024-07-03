@@ -4,13 +4,13 @@ import { TiPlus, TiMinus } from 'react-icons/ti';
 import { CartData } from '../../shared/types/types';
 import { StyledCard } from './CartCard.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
+import { RootState } from '../../store/store';
 import {
   changeQuantity,
   decrementQuantity,
   deleteProduct,
   incrementQuantity,
-} from '../../state/cartProducts/cartProducts.slice';
+} from '../../store/cartProducts/cartProducts.slice';
 
 interface Props {
   image: string;
