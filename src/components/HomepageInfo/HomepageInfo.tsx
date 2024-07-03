@@ -1,18 +1,18 @@
 import { StyledInfo } from './HomepageInfo.styles';
 
 export const HomepageInfo = () => {
-  const tokens = fetch('https://api.escuelajs.co/api/v1/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({
-      email: 'john@mail.com',
-      password: 'changeme',
-    }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
+  // const tokens = fetch('https://api.escuelajs.co/api/v1/auth/login', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     email: 'john@mail.com',
+  //     password: 'changeme',
+  //   }),
+  //   headers: {
+  //     'Content-type': 'application/json; charset=UTF-8',
+  //   },
+  // });
 
-  tokens.then((response) => response.json()).then((json) => console.log(json));
+  // tokens.then((response) => response.json()).then((json) => console.log(json));
 
   return (
     <StyledInfo>
