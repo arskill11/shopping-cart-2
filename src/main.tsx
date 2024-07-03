@@ -4,6 +4,9 @@ import App from './App.tsx';
 import { createGlobalStyle } from 'styled-components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import { store } from './state/store.ts';
+
 import { Cart } from './pages/Cart/';
 import { Homepage } from './pages/Homepage/';
 import { Product } from './pages/Product/';
@@ -43,6 +46,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Global />
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 );

@@ -1,53 +1,79 @@
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useProductsQuery from '../../shared/hooks/useProductsQuery';
-import { useState } from 'react';
 import { CartData } from '../../shared/types/types';
 import { checkDuplication } from '../../shared/helpers/utility';
 import { Button, ButtonContainer, StyledProduct } from './Product.styles';
 import { getProductsById } from '../../api/products';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import {
+  decrement,
+  increment,
+  setValue,
+} from '../../state/quantityCounter/quantityCounter.slice';
+import {
+  addNewProduct,
+  changeQuantity,
+  incrementQuantityByNumber,
+} from '../../state/cartProducts/cartProducts.slice';
+import { useEffect } from 'react';
 
 export const Product = () => {
   const params = useParams();
-  const [cartProducts, setCartProducts]: [
-    CartData[],
-    React.Dispatch<React.SetStateAction<CartData[]>>,
-  ] = useOutletContext();
-
   const id = params.id as string;
+
+  const cartProducts: CartData[] = useSelector(
+    (state: RootState) => state.cartProducts,
+  );
+  const quantityCounter: number = useSelector(
+    (state: RootState) => state.quantityCounter.value,
+  );
+  const dispatch = useDispatch();
 
   const data = useProductsQuery(getProductsById, id);
   const product: CartData = { ...data[0], quantity: 0 };
 
-  const [counter, setCounter] = useState<number>(1);
+  useEffect(() => {
+    dispatch(setValue(1));
+  }, []);
 
   function handleDecrease() {
-    if (counter === 1) {
+    if (quantityCounter === 1) {
       return;
     }
-    setCounter(counter - 1);
+    dispatch(decrement());
   }
 
   function handleIncrease() {
-    setCounter(counter + 1);
+    dispatch(increment());
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setCounter(+e.target.value);
+    dispatch(setValue(+e.target.value));
   }
 
   function handleClick() {
-    const nextProducts = cartProducts.map((item) => {
-      if (item.id === product.id) {
-        return { ...item, quantity: item.quantity + counter };
+    cartProducts.map((item) => {
+      if (product.id === item.id) {
+        dispatch(
+          incrementQuantityByNumber({
+            id: product.id,
+            amount: quantityCounter,
+          }),
+        );
       } else {
         return item;
       }
     });
 
     if (!checkDuplication(cartProducts, product)) {
-      setCartProducts([...cartProducts, { ...product, quantity: counter }]);
+      dispatch(addNewProduct(product));
+
+      dispatch(changeQuantity({ id: product.id, quantity: quantityCounter }));
     } else {
-      setCartProducts(nextProducts);
+      console.log(cartProducts);
+
+      dispatch(addNewProduct(product));
     }
   }
 
@@ -69,7 +95,7 @@ export const Product = () => {
                 min={0}
                 max={25}
                 onChange={handleChange}
-                value={counter}
+                value={quantityCounter}
               />
               <button onClick={handleIncrease}>+</button>
             </div>

@@ -1,8 +1,3 @@
-interface Rating {
-  rate: number;
-  count: number;
-}
-
 interface Category {
   id: number;
   name: string;
@@ -16,7 +11,6 @@ interface ProductData {
   description: string;
   category: Category;
   images: string[];
-  // rating: Rating;
 }
 
 interface CartData extends ProductData {

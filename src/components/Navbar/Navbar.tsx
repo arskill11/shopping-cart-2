@@ -7,12 +7,13 @@ import {
   LogoContainer,
   StyledNavbar,
 } from './Navbar.styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
-interface Props {
-  cartProducts: CartData[];
-}
-
-export const Navbar = ({ cartProducts }: Props) => {
+export const Navbar = () => {
+  const cartProducts: CartData[] = useSelector(
+    (state: RootState) => state.cartProducts,
+  );
   return (
     <StyledNavbar>
       <h1>FakeShop</h1>

@@ -1,14 +1,13 @@
-import { useOutletContext } from 'react-router-dom';
-import { CartData } from '../../shared/types/types';
 import { CartCard } from '../../components/CartCard';
 import { SendingPage, StyledCart } from './Cart.styles';
 import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import { clearCart } from '../../state/cartProducts/cartProducts.slice';
 
 export const Cart = () => {
-  const [cartProducts, setCartProducts]: [
-    CartData[],
-    React.Dispatch<React.SetStateAction<CartData[]>>,
-  ] = useOutletContext();
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
+  const dispatch = useDispatch();
 
   let totalValue = 0;
 
@@ -23,8 +22,7 @@ export const Cart = () => {
   function handleClick() {
     setIsSent(true);
     setTimeout(() => setIsSent(false), 2000);
-    const emptyProducts: CartData[] = [];
-    setCartProducts(emptyProducts);
+    dispatch(clearCart());
   }
 
   return !isSent ? (
@@ -33,14 +31,13 @@ export const Cart = () => {
       <div className="products">
         {cartProducts.map((product) => (
           <CartCard
+            key={product.title}
             image={product.images[0]}
             title={product.title}
             price={product.price}
             category={product.category.name}
             id={product.id}
             quantity={product.quantity}
-            cartProducts={cartProducts}
-            setCartProducts={setCartProducts}
           />
         ))}
       </div>

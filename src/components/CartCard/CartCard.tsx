@@ -3,17 +3,22 @@ import { MdDelete } from 'react-icons/md';
 import { TiPlus, TiMinus } from 'react-icons/ti';
 import { CartData } from '../../shared/types/types';
 import { StyledCard } from './CartCard.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import {
+  changeQuantity,
+  decrementQuantity,
+  deleteProduct,
+  incrementQuantity,
+} from '../../state/cartProducts/cartProducts.slice';
 
 interface Props {
   image: string;
   title: string;
   price: number;
-  // rating: number;
   category: string;
   id: number;
   quantity?: number;
-  cartProducts?: CartData[];
-  setCartProducts?: React.Dispatch<React.SetStateAction<CartData[]>>;
 }
 
 export const CartCard = ({
@@ -23,44 +28,49 @@ export const CartCard = ({
   category,
   id,
   quantity,
-  cartProducts,
-  setCartProducts,
 }: Props) => {
+  const cartProducts: CartData[] = useSelector(
+    (state: RootState) => state.cartProducts,
+  );
+  const dispatch = useDispatch();
+
   function handleDecrease() {
     if (quantity === 1) {
       return;
     }
-    if (cartProducts && setCartProducts) {
-      const nextProducts = cartProducts.map((item) => {
+    if (cartProducts) {
+      cartProducts.map((item) => {
         if (item.id === id) {
-          return { ...item, quantity: item.quantity - 1 };
+          dispatch(decrementQuantity(id));
         } else {
-          return item;
+          return;
         }
       });
-      setCartProducts(nextProducts);
     }
   }
 
   function handleIncrease() {
-    if (cartProducts && setCartProducts) {
-      const nextProducts = cartProducts.map((item) => {
+    if (cartProducts) {
+      cartProducts.map((item) => {
         if (item.id === id) {
-          return { ...item, quantity: item.quantity + 1 };
+          dispatch(incrementQuantity(id));
         } else {
-          return item;
+          return;
         }
       });
-      setCartProducts(nextProducts);
     }
   }
 
   function handleDelete() {
-    if (cartProducts && setCartProducts) {
-      setCartProducts(cartProducts.filter((item) => item.id !== id));
+    if (cartProducts) {
+      console.log(id);
+      dispatch(deleteProduct(id));
     }
   }
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(changeQuantity({ id: id, quantity: +e.target.value }));
+  }
   return (
     <StyledCard>
       <Link to={`/product/${id}`}>
@@ -74,7 +84,13 @@ export const CartCard = ({
       <div className="manageButtons">
         <div className="quantityButtons">
           <TiMinus className="decreaseButton" onClick={handleDecrease} />
-          <input className="quantity" type="number" value={quantity} min={0} />
+          <input
+            className="quantity"
+            type="number"
+            value={quantity}
+            min={0}
+            onChange={handleChange}
+          />
           <TiPlus className="increaseButton" onClick={handleIncrease} />
         </div>
         <MdDelete className="deleteButton" onClick={handleDelete} />

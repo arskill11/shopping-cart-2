@@ -31,12 +31,7 @@ export const Cards = () => {
         {currentProduct.map((product) => (
           <ShopPageCard
             key={product.id}
-            image={
-              product.images[0]
-              // typeof product.images === 'string'
-              //   ? product.images
-              //   : JSON.parse(product.images)[0]
-            }
+            image={product.images[0]}
             title={product.title}
             price={product.price}
             id={product.id}
