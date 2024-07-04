@@ -7,8 +7,14 @@ const cartProductsSlice = createSlice({
   name: 'cartProducts',
   initialState,
   reducers: {
-    addNewProduct: (state, action: PayloadAction<CartData>) => {
-      state.push(action.payload);
+    addNewProduct: (
+      state,
+      action: PayloadAction<{ product: CartData; quantity: number }>,
+    ) => {
+      state.push({
+        ...action.payload.product,
+        quantity: action.payload.quantity,
+      });
     },
     clearCart: (state) => {
       while (state.length > 0) {
@@ -26,9 +32,9 @@ const cartProductsSlice = createSlice({
       state,
       action: PayloadAction<{ id: number; quantity: number }>,
     ) => {
-      state.map((product) => {
+      state.forEach((product) => {
         if (product.id === action.payload.id) {
-          product.quantity = action.payload.quantity;
+          product.quantity += action.payload.quantity;
         }
       });
     },
@@ -46,16 +52,6 @@ const cartProductsSlice = createSlice({
         }
       });
     },
-    incrementQuantityByNumber: (
-      state,
-      action: PayloadAction<{ id: number; amount: number }>,
-    ) => {
-      state.map((product) => {
-        if (product.id === action.payload.id) {
-          product.quantity += action.payload.amount;
-        }
-      });
-    },
   },
 });
 
@@ -66,7 +62,6 @@ export const {
   decrementQuantity,
   clearCart,
   deleteProduct,
-  incrementQuantityByNumber,
 } = cartProductsSlice.actions;
 
 export default cartProductsSlice.reducer;

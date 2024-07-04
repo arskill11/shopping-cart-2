@@ -1,13 +1,6 @@
 import { Link } from 'react-router-dom';
 import { StyledCard, CardWrapper } from './ShopPageCard.styles';
-
-interface Props {
-  image: string;
-  title: string;
-  price: number;
-  id: number;
-  category: string;
-}
+import { Props } from './types';
 
 export const ShopPageCard = ({ image, title, price, category, id }: Props) => {
   return (

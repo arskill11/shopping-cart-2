@@ -1,11 +1,5 @@
 import { StyledPagination } from './Pagination.styles';
-
-interface Props {
-  productsPerPage: number;
-  totalProducts: number;
-  paginate: (pageNumber: number) => void;
-  currentPage: number;
-}
+import { Props } from './types';
 
 export const Pagination = ({
   productsPerPage,

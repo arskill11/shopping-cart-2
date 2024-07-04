@@ -1,20 +1,22 @@
 import { ProductData } from '../../shared/types/types';
-import useProductsQuery from '../../shared/hooks/useProductsQuery';
-import { useParams } from 'react-router-dom';
 import { StyledCards } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
 import { Pagination } from '../Pagination';
-import { getProducts, getProductsByCategory } from '../../api/products';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchProducts } from '../../store/shopProducts/shopProducts.slice';
 
 export const Cards = () => {
-  const params = useParams();
-  const category = params.category ? params.category : '';
-
-  const products: ProductData[] = useProductsQuery(
-    category ? getProductsByCategory : getProducts,
-    category,
+  const products: ProductData[] = useSelector(
+    (state: RootState) => state.shopProducts.products,
   );
+  const isLoading: boolean = useSelector(
+    (state: RootState) => state.shopProducts.isLoading,
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [currentProducts, setCurrentProducts] = useState<ProductData[]>([]);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsPerPage] = useState(10);
@@ -23,12 +25,23 @@ export const Cards = () => {
   const firstproductIndex = lastproductIndex - productsPerPage;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const currentProduct = products.slice(firstproductIndex, lastproductIndex);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  useEffect(() => {
+    setCurrentProducts(products.slice(firstproductIndex, lastproductIndex));
+  }, [currentPage]);
+
+  if (isLoading) {
+    return <div>is loading</div>;
+  }
 
   return (
     <StyledCards>
       <div className="goods">
-        {currentProduct.map((product) => (
+        {currentProducts.map((product) => (
           <ShopPageCard
             key={product.id}
             image={product.images[0]}

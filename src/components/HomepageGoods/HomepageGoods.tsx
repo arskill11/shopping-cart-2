@@ -1,10 +1,6 @@
 import { StyledGoods } from './HomepageGoods.styles';
-import { ProductData } from '../../shared/types/types';
 import { ShopPageCard } from '../ShopPageCard';
-
-interface Props {
-  products: ProductData[];
-}
+import { Props } from './types';
 
 export const HomepageGoods = ({ products }: Props) => {
   return (
@@ -14,12 +10,7 @@ export const HomepageGoods = ({ products }: Props) => {
         {products.map((product) => (
           <ShopPageCard
             key={product.id}
-            image={
-              product.images[0]
-              // typeof product.images === 'string'
-              //   ? product.images
-              //   : JSON.parse(product.image)[0]
-            }
+            image={product.images[0]}
             title={product.title}
             price={product.price}
             category={product.category.name}
