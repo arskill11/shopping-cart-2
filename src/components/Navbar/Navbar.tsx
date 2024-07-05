@@ -9,7 +9,7 @@ import {
 } from './Navbar.styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export const Navbar = () => {
   const cartProductsQuantity: number = useSelector(
