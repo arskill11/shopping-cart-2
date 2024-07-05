@@ -62,6 +62,15 @@ export const ButtonContainer = styled.div`
     gap: 15px;
   }
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
   div.counter {
     display: flex;
     gap: 15px;
