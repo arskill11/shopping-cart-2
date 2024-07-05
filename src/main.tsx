@@ -16,7 +16,7 @@ import { Cards } from './components/ShopPageCardList/';
 import { LogIn } from './pages/LogIn/';
 import { SignUp } from './pages/SignUp/';
 import { ProtectedRoute } from './components/ProtectedRoute/';
-import { Profile } from './components/Profile/';
+import { Profile } from './pages/Profile/';
 
 const Global = createGlobalStyle`
 * {

@@ -13,6 +13,8 @@ import {
   ProfilePicture,
 } from './Profile.styles';
 import { EditMode, User } from './types';
+import { CartData } from '../../shared/types/types';
+import { clearCart } from '../../store/cartProducts/cartProducts.slice';
 
 const initialEditMode = {
   name: false,
@@ -24,6 +26,9 @@ const initialEditMode = {
 export const Profile = () => {
   const access_token: string = useSelector(
     (state: RootState) => state.auth.access_token,
+  );
+  const cartProducts: CartData[] = useSelector(
+    (state: RootState) => state.cartProducts,
   );
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -44,6 +49,7 @@ export const Profile = () => {
 
   function handleLogOut() {
     dispatch(logOut());
+    dispatch(clearCart());
     navigate('/');
   }
 
