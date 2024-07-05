@@ -1,6 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { checkDuplication } from '../../shared/helpers/utility';
-import { Button, ButtonContainer, StyledProduct } from './Product.styles';
+import {
+  Button,
+  ButtonContainer,
+  LoadingPage,
+  StyledProduct,
+} from './Product.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import {
@@ -54,14 +59,16 @@ export const Product = () => {
     if (checkDuplication(cartProducts, product)) {
       dispatch(changeQuantity({ id: product.id, quantity: counter }));
     } else {
-      console.log(cartProducts);
-
       dispatch(addNewProduct({ product: product, quantity: counter }));
     }
   }
 
   if (data.isLoading) {
-    return <div>is loading</div>;
+    return (
+      <LoadingPage>
+        <h2>Loading content...</h2>
+      </LoadingPage>
+    );
   }
 
   return (

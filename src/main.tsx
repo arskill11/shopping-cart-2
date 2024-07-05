@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
 
 import { Cart } from './pages/Cart/';
-import { Homepage } from './pages/Homepage/';
+import { Homepage } from './pages/Home/';
 import { Product } from './pages/Product/';
-import { ShopPage } from './pages/ShopPage/';
+import { ShopPage } from './pages/Shop/';
 import { ErrorNotFound } from './pages/ErrorNotFound/';
 import { Cards } from './components/ShopPageCardList/';
 

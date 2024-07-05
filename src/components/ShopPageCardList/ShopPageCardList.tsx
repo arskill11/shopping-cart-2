@@ -1,5 +1,5 @@
 import { ProductData } from '../../shared/types/types';
-import { StyledCards } from './ShopPageCardList.styles';
+import { LoadingPage, StyledCards } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
 import { Pagination } from '../Pagination';
 import { useEffect, useState } from 'react';
@@ -17,7 +17,6 @@ export const Cards = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [currentProducts, setCurrentProducts] = useState<ProductData[]>([]);
-
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsPerPage] = useState(10);
 
@@ -35,7 +34,11 @@ export const Cards = () => {
   }, [currentPage]);
 
   if (isLoading) {
-    return <div>is loading</div>;
+    return (
+      <LoadingPage>
+        <h2>Loading content...</h2>
+      </LoadingPage>
+    );
   }
 
   return (

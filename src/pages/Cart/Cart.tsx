@@ -21,8 +21,10 @@ export const Cart = () => {
 
   function handleClick() {
     setIsSent(true);
-    setTimeout(() => setIsSent(false), 2000);
-    dispatch(clearCart());
+    setTimeout(() => {
+      setIsSent(false);
+      dispatch(clearCart());
+    }, 2000);
   }
 
   return !isSent ? (
