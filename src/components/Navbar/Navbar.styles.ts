@@ -73,5 +73,12 @@ export const LogoContainer = styled(ButtonContainer)`
   .cartButton {
     font-size: 1.7rem;
     cursor: pointer;
+  }
+`;
 
+export const UserButtonsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: min-content;
 `;

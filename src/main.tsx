@@ -13,6 +13,8 @@ import { Product } from './pages/Product/';
 import { ShopPage } from './pages/Shop/';
 import { ErrorNotFound } from './pages/ErrorNotFound/';
 import { Cards } from './components/ShopPageCardList/';
+import { LogIn } from './pages/LogIn/';
+import { SignUp } from './pages/SignUp/';
 
 const Global = createGlobalStyle`
 * {
@@ -39,6 +41,8 @@ const router = createBrowserRouter([
       },
       { path: 'product/:id', element: <Product /> },
       { path: 'cart', element: <Cart /> },
+      { path: 'auth/login', element: <LogIn /> },
+      { path: 'auth/signup', element: <SignUp /> },
     ],
   },
 ]);

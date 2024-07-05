@@ -6,6 +6,7 @@ import {
   ButtonContainer,
   LogoContainer,
   StyledNavbar,
+  UserButtonsContainer,
 } from './Navbar.styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -32,14 +33,19 @@ export const Navbar = () => {
           <NavLink to={'/shop'}>Shop</NavLink>
         </Button>
       </ButtonContainer>
-      <Link to={'/cart'}>
-        <LogoContainer>
-          <Button>
-            <BsCart4 className="cartButton" />
-          </Button>
-          <p className="cartCount">{cartProducts.length}</p>
-        </LogoContainer>
-      </Link>
+      <UserButtonsContainer>
+        <Link to={'/cart'}>
+          <LogoContainer>
+            <Button>
+              <BsCart4 className="cartButton" />
+            </Button>
+            <p className="cartCount">{cartProducts.length}</p>
+          </LogoContainer>
+        </Link>
+        <Button>
+          <Link to={'/auth/login'}>Login</Link>
+        </Button>
+      </UserButtonsContainer>
     </StyledNavbar>
   );
 };
