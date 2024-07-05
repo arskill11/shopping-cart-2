@@ -31,7 +31,7 @@ export const Cards = () => {
 
   useEffect(() => {
     setCurrentProducts(products.slice(firstproductIndex, lastproductIndex));
-  }, [currentPage]);
+  }, [products, currentPage]);
 
   if (isLoading) {
     return (

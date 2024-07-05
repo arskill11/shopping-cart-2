@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Container, Form, SignUpAnnotation } from './LogIn.styles';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getTokens } from '../../store/auth/auth.slice';
 
 export const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatch(getTokens({ email, password }));
   };
 
   return (

@@ -4,4 +4,5 @@ export interface Props {
   price: number;
   id: number;
   category: string;
+  render?: () => React.ReactNode;
 }

@@ -1,6 +1,5 @@
 import { BsCart4 } from 'react-icons/bs';
-import { Link, NavLink } from 'react-router-dom';
-import { CartData } from '../../shared/types/types';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   Button,
   ButtonContainer,
@@ -10,11 +9,23 @@ import {
 } from './Navbar.styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useEffect, useState } from 'react';
 
 export const Navbar = () => {
-  const cartProducts: CartData[] = useSelector(
-    (state: RootState) => state.cartProducts,
+  const cartProductsQuantity: number = useSelector(
+    (state: RootState) => state.cartProducts.length,
   );
+  const isAuthorized: boolean = useSelector(
+    (state: RootState) => state.auth.isAuthorized,
+  );
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuthorized) {
+      navigate('/shop');
+    }
+  }, [isAuthorized]);
+
   return (
     <StyledNavbar>
       <h1>FakeShop</h1>
@@ -34,17 +45,30 @@ export const Navbar = () => {
         </Button>
       </ButtonContainer>
       <UserButtonsContainer>
-        <Link to={'/cart'}>
-          <LogoContainer>
+        {isAuthorized ? (
+          <>
+            <Link to={'/cart'}>
+              <LogoContainer>
+                <Button>
+                  <BsCart4 className="cartButton" />
+                </Button>
+                <p className="cartCount">{cartProductsQuantity}</p>
+              </LogoContainer>
+            </Link>
             <Button>
-              <BsCart4 className="cartButton" />
+              <Link to={'/profile'}>Profile</Link>
             </Button>
-            <p className="cartCount">{cartProducts.length}</p>
-          </LogoContainer>
-        </Link>
-        <Button>
-          <Link to={'/auth/login'}>Login</Link>
-        </Button>
+          </>
+        ) : (
+          <>
+            <Button>
+              <NavLink to={'/auth/signup'}>SignUp</NavLink>
+            </Button>
+            <Button>
+              <NavLink to={'/auth/login'}>Login</NavLink>
+            </Button>
+          </>
+        )}
       </UserButtonsContainer>
     </StyledNavbar>
   );

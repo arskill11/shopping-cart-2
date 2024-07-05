@@ -3,11 +3,10 @@ import styled from 'styled-components';
 export const StyledCard = styled.div`
   border-radius: 15px;
   box-shadow: 1px 1px darkgray;
-  background: white;
-  padding: 20px;
-
   height: 400px;
   width: 300px;
+  background-color: white;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;

@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import { Button, Container, Form, LogInAnnotation } from './SignUp.styles';
 import { createUser } from '../../api/auth';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getTokens } from '../../store/auth/auth.slice';
+import { NewUser } from './types';
 
 export const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createUser(name, email, password);
+    const newUser: NewUser = await createUser({ name, email, password });
+    dispatch(getTokens({ email: newUser.email, password: newUser.password }));
   };
 
   return (

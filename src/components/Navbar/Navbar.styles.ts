@@ -8,6 +8,7 @@ export const StyledNavbar = styled.nav`
   padding: 30px 50px;
   position: sticky;
   top: 0;
+  z-index: 99;
   h1 {
     font-size: 30px;
   }

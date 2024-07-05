@@ -2,7 +2,14 @@ import { Link } from 'react-router-dom';
 import { StyledCard, CardWrapper } from './ShopPageCard.styles';
 import { Props } from './types';
 
-export const ShopPageCard = ({ image, title, price, category, id }: Props) => {
+export const ShopPageCard = ({
+  image,
+  title,
+  price,
+  category,
+  id,
+  render,
+}: Props) => {
   return (
     <CardWrapper>
       <Link to={`/product/${id}`} data-testid={id}>
@@ -16,6 +23,7 @@ export const ShopPageCard = ({ image, title, price, category, id }: Props) => {
           <p>{category}</p>
         </StyledCard>
       </Link>
+      {render && render()}
     </CardWrapper>
   );
 };

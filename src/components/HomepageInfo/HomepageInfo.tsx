@@ -14,7 +14,7 @@ export const HomepageInfo = () => {
   // });
   // tokens.then((response) => response.json()).then((json) => console.log(json));
 
-  //-----------CREATE A USER---------
+  // -----------CREATE A USER---------
   // const userInfo = fetch('https://api.escuelajs.co/api/v1/users/', {
   //   method: 'POST',
   //   body: JSON.stringify({

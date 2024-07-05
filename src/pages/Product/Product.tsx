@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { checkDuplication } from '../../shared/helpers/utility';
 import {
   Button,
@@ -26,18 +26,21 @@ export const Product = () => {
   const cartProducts: CartData[] = useSelector(
     (state: RootState) => state.cartProducts,
   );
-  const dispatch = useDispatch<AppDispatch>();
-
-  const data: CurrentProduct = useSelector(
+  const currentProduct: CurrentProduct = useSelector(
     (state: RootState) => state.shopProducts.currentProduct,
   );
+  const isAuthorized: boolean = useSelector(
+    (state: RootState) => state.auth.isAuthorized,
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProductById(id));
   }, []);
 
-  const product: CartData = { ...data, quantity: 0 };
-
+  const product: CartData = { ...currentProduct, quantity: 0 };
   const [counter, setCounter] = useState<number>(1);
 
   function handleQuantityDecrease() {
@@ -56,6 +59,11 @@ export const Product = () => {
   }
 
   function handleAddToCart() {
+    if (!isAuthorized) {
+      navigate('/auth/login');
+      return;
+    }
+
     if (checkDuplication(cartProducts, product)) {
       dispatch(changeQuantity({ id: product.id, quantity: counter }));
     } else {
@@ -63,7 +71,7 @@ export const Product = () => {
     }
   }
 
-  if (data.isLoading) {
+  if (currentProduct.isLoading) {
     return (
       <LoadingPage>
         <h2>Loading content...</h2>

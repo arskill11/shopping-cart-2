@@ -68,7 +68,6 @@ export const CartCard = ({
             className="quantity"
             type="number"
             value={quantity}
-            min={0}
             onChange={handleQuantityChange}
           />
           <TiPlus className="increaseButton" onClick={handleQuantityIncrease} />

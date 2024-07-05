@@ -17,7 +17,7 @@ export const StyledCard = styled.div`
   box-shadow: 1px 1px darkgray;
   height: 350px;
   width: 275px;
-  background: white;
+  background-color: white;
   padding: 20px;
   display: grid;
   grid-template-rows: 4fr 2.5fr 0.5fr 0.5fr;

@@ -15,6 +15,8 @@ import { ErrorNotFound } from './pages/ErrorNotFound/';
 import { Cards } from './components/ShopPageCardList/';
 import { LogIn } from './pages/LogIn/';
 import { SignUp } from './pages/SignUp/';
+import { ProtectedRoute } from './components/ProtectedRoute/';
+import { Profile } from './components/Profile/';
 
 const Global = createGlobalStyle`
 * {
@@ -40,9 +42,24 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'product/:id', element: <Product /> },
-      { path: 'cart', element: <Cart /> },
+      {
+        path: 'cart',
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
       { path: 'auth/login', element: <LogIn /> },
       { path: 'auth/signup', element: <SignUp /> },
+      {
+        path: 'profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
