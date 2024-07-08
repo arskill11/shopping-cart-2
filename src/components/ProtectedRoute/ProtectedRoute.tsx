@@ -1,11 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-
-interface Props {
-  children: ReactNode;
-}
+import { Props } from './types';
 
 export const ProtectedRoute = ({ children }: Props) => {
   const isAuthorized: boolean = useSelector(

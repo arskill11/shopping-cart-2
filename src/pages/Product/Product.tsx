@@ -42,10 +42,11 @@ export const Product = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { data = initialProduct, isLoading } = useGetProductByIdQuery(id);
+  const { data: fetchedProduct = initialProduct, isLoading } =
+    useGetProductByIdQuery(id);
 
   const product: CartData = {
-    ...data,
+    ...fetchedProduct,
     quantity: 0,
   };
   const [counter, setCounter] = useState<number>(1);

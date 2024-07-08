@@ -39,7 +39,7 @@ export const Profile = () => {
     (state: RootState) => state.auth.access_token,
   );
 
-  const { data = initialUser, isLoading } =
+  const { data: currentUser = initialUser, isLoading } =
     useGetUserWithSessionQuery(access_token);
   const [updateUser] = useUpdateUserMutation();
   const dispatch = useDispatch<AppDispatch>();
@@ -51,7 +51,7 @@ export const Profile = () => {
 
   useEffect(() => {
     console.log(access_token);
-    setUser(data);
+    setUser(currentUser);
   }, [isLoading]);
 
   function handleLogOut() {

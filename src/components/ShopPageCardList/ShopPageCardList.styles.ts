@@ -36,3 +36,39 @@ export const LoadingPage = styled.div`
     font-weight: bold;
   }
 `;
+
+export const StyledPagination = styled.div`
+  margin-top: 70px;
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  li {
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  li a {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+  }
+
+  li.selected {
+    background-color: lightgray;
+  }
+
+  ul li.disabled {
+    opacity: 0.5;
+  }
+`;

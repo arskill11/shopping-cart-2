@@ -11,7 +11,6 @@ export const LogIn = () => {
   const [password, setPassword] = useState('');
 
   const [getTokens] = useGetTokensMutation();
-
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
