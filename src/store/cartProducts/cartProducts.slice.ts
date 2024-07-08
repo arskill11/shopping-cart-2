@@ -17,12 +17,11 @@ const cartProductsSlice = createSlice({
       });
     },
     clearCart: (state) => {
-      while (state.length > 0) {
-        state.pop();
-      }
+      state = [];
+      return state;
     },
     deleteProduct: (state, action: PayloadAction<number>) => {
-      state.map((product, index) => {
+      state.forEach((product, index) => {
         if (product.id === action.payload) {
           state.splice(index, 1);
         }
@@ -39,14 +38,14 @@ const cartProductsSlice = createSlice({
       });
     },
     incrementQuantity: (state, action: PayloadAction<number>) => {
-      state.map((product) => {
+      state.forEach((product) => {
         if (product.id === action.payload) {
           product.quantity += 1;
         }
       });
     },
     decrementQuantity: (state, action: PayloadAction<number>) => {
-      state.map((product) => {
+      state.forEach((product) => {
         if (product.id === action.payload) {
           product.quantity -= 1;
         }

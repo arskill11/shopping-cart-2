@@ -1,4 +1,3 @@
-import { getUserWithSession, updateUser } from '../../api/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { useEffect, useState } from 'react';
@@ -13,39 +12,47 @@ import {
   ProfilePicture,
 } from './Profile.styles';
 import { EditMode, User } from './types';
-import { CartData } from '../../shared/types/types';
 import { clearCart } from '../../store/cartProducts/cartProducts.slice';
+import {
+  useGetUserWithSessionQuery,
+  useUpdateUserMutation,
+} from '../../store/api/api.slice';
 
-const initialEditMode = {
+const initialEditMode: EditMode = {
   name: false,
   email: false,
   password: false,
   avatar: false,
 };
 
+const initialUser: User = {
+  id: 0,
+  email: '',
+  password: '',
+  name: '',
+  avatar: '',
+  role: '',
+};
+
 export const Profile = () => {
   const access_token: string = useSelector(
     (state: RootState) => state.auth.access_token,
   );
-  const cartProducts: CartData[] = useSelector(
-    (state: RootState) => state.cartProducts,
-  );
+
+  const { data = initialUser, isLoading } =
+    useGetUserWithSessionQuery(access_token);
+  const [updateUser] = useUpdateUserMutation();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User>();
-  const [editMode, setEditMode] = useState<EditMode>(initialEditMode);
+  const [editMode, setEditMode] = useState(initialEditMode);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const newUser = await getUserWithSession(access_token);
-      setUser(newUser);
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, []);
+    console.log(access_token);
+    setUser(data);
+  }, [isLoading]);
 
   function handleLogOut() {
     dispatch(logOut());
@@ -54,15 +61,17 @@ export const Profile = () => {
   }
 
   async function handleChange(property: string) {
-    const newUser = await updateUser({
+    await updateUser({
       id: user!.id,
       property: property,
       value: inputValue,
-    });
-    console.log(newUser);
-    setUser(newUser);
-    setEditMode({ ...editMode, [property]: false });
-    setInputValue('');
+    })
+      .unwrap()
+      .then((newUser) => {
+        setUser(newUser);
+        setEditMode({ ...editMode, [property]: false });
+        setInputValue('');
+      });
   }
 
   function handleModeChange(property: string) {

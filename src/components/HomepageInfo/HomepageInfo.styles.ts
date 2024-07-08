@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import sectionOneBackgr from '../../assets/section1backgr.jpg';
+import sectionOneBackgr from '../../assets/images/section1backgr.jpg';
 
 export const StyledInfo = styled.div`
   min-height: 90vh;

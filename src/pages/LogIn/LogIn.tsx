@@ -3,17 +3,22 @@ import { Button, Container, Form, SignUpAnnotation } from './LogIn.styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { getTokens } from '../../store/auth/auth.slice';
+import { saveTokens } from '../../store/auth/auth.slice';
+import { useGetTokensMutation } from '../../store/api/api.slice';
 
 export const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [getTokens] = useGetTokensMutation();
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(getTokens({ email, password }));
+    await getTokens({ email: email, password: password })
+      .unwrap()
+      .then((tokens) => dispatch(saveTokens(tokens)));
   };
 
   return (
@@ -42,7 +47,7 @@ export const LogIn = () => {
       </Form>
       <SignUpAnnotation>
         <p>Don't have an account?</p>
-        <Link to={'/auth/signup'}>SingUp</Link>
+        <Link to={'/auth/signup'}>SignUp</Link>
       </SignUpAnnotation>
     </Container>
   );

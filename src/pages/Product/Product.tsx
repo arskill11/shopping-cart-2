@@ -12,12 +12,22 @@ import {
   addNewProduct,
   changeQuantity,
 } from '../../store/cartProducts/cartProducts.slice';
-import { useEffect, useState } from 'react';
-import {
-  CurrentProduct,
-  fetchProductById,
-} from '../../store/shopProducts/shopProducts.slice';
-import { CartData } from '../../shared/types/types';
+import { useState } from 'react';
+import { CartData, ProductData } from '../../shared/types/types';
+import { useGetProductByIdQuery } from '../../store/api/api.slice';
+
+const initialProduct: ProductData = {
+  id: 0,
+  title: '',
+  price: 0,
+  description: '',
+  category: {
+    id: 0,
+    name: '',
+    image: '',
+  },
+  images: [],
+};
 
 export const Product = () => {
   const params = useParams();
@@ -26,21 +36,18 @@ export const Product = () => {
   const cartProducts: CartData[] = useSelector(
     (state: RootState) => state.cartProducts,
   );
-  const currentProduct: CurrentProduct = useSelector(
-    (state: RootState) => state.shopProducts.currentProduct,
-  );
   const isAuthorized: boolean = useSelector(
     (state: RootState) => state.auth.isAuthorized,
   );
   const dispatch = useDispatch<AppDispatch>();
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(fetchProductById(id));
-  }, []);
+  const { data = initialProduct, isLoading } = useGetProductByIdQuery(id);
 
-  const product: CartData = { ...currentProduct, quantity: 0 };
+  const product: CartData = {
+    ...data,
+    quantity: 0,
+  };
   const [counter, setCounter] = useState<number>(1);
 
   function handleQuantityDecrease() {
@@ -71,7 +78,7 @@ export const Product = () => {
     }
   }
 
-  if (currentProduct.isLoading) {
+  if (isLoading) {
     return (
       <LoadingPage>
         <h2>Loading content...</h2>
@@ -83,7 +90,7 @@ export const Product = () => {
     <StyledProduct>
       <div className="product" key={product.title}>
         <div className="image">
-          <img src={product.images[0]} alt="" />
+          <img src={product.images[0].replaceAll(/[\[\]'",]/g, '')} alt="" />
         </div>
         <h3>{product.title}</h3>
         <p>USD {product.price}</p>

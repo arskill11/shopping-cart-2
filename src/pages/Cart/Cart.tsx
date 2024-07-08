@@ -1,21 +1,22 @@
 import { CartCard } from '../../components/CartCard';
 import { SendingPage, StyledCart } from './Cart.styles';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { clearCart } from '../../store/cartProducts/cartProducts.slice';
+import { CartData } from '../../shared/types/types';
 
 export const Cart = () => {
-  const cartProducts = useSelector((state: RootState) => state.cartProducts);
-  const dispatch = useDispatch();
+  const cartProducts: CartData[] = useSelector(
+    (state: RootState) => state.cartProducts,
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   let totalValue = 0;
 
-  useMemo(() => {
-    for (let i = 0; i < cartProducts.length; i++) {
-      totalValue += cartProducts[i].price * cartProducts[i].quantity;
-    }
-  }, [cartProducts]);
+  for (let i = 0; i < cartProducts.length; i++) {
+    totalValue += cartProducts[i].price * cartProducts[i].quantity;
+  }
 
   const [isSent, setIsSent] = useState(false);
 
@@ -23,25 +24,28 @@ export const Cart = () => {
     setIsSent(true);
     setTimeout(() => {
       setIsSent(false);
-      dispatch(clearCart());
     }, 2000);
+    dispatch(clearCart());
   }
 
   return !isSent ? (
     <StyledCart>
       <h2>Your cart</h2>
       <div className="products">
-        {cartProducts.map((product) => (
-          <CartCard
-            key={product.title}
-            image={product.images[0]}
-            title={product.title}
-            price={product.price}
-            category={product.category.name}
-            id={product.id}
-            quantity={product.quantity}
-          />
-        ))}
+        {cartProducts.map((product) => {
+          const fixedImageUrl = product.images[0].replaceAll(/[\[\],]/g, '');
+          return (
+            <CartCard
+              key={product.title}
+              image={fixedImageUrl}
+              title={product.title}
+              price={product.price}
+              category={product.category.name}
+              id={product.id}
+              quantity={product.quantity}
+            />
+          );
+        })}
       </div>
       {cartProducts.length > 0 ? (
         <div className="checkout">

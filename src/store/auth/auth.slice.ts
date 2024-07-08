@@ -1,8 +1,12 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { logIn } from '../../api/auth';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface AuthState {
   isAuthorized: boolean;
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface TokensPayload {
   access_token: string;
   refresh_token: string;
 }
@@ -22,27 +26,14 @@ const authSlice = createSlice({
       state.refresh_token = '';
       state.isAuthorized = false;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(
-        getTokens.fulfilled,
-        (state, action: PayloadAction<AuthState>) => {
-          state.access_token = action.payload.access_token;
-          state.refresh_token = action.payload.refresh_token;
-          if (action.payload.access_token) {
-            state.isAuthorized = true;
-          }
-        },
-      )
-      .addCase(getTokens.rejected, (state) => {
-        state.isAuthorized = false;
-      });
+    saveTokens: (state, action: PayloadAction<TokensPayload>) => {
+      state.access_token = action.payload.access_token;
+      state.refresh_token = action.payload.refresh_token;
+      state.isAuthorized = true;
+    },
   },
 });
 
-export const getTokens = createAsyncThunk('auth/getTokens', logIn);
-
-export const { logOut } = authSlice.actions;
+export const { logOut, saveTokens } = authSlice.actions;
 
 export default authSlice.reducer;

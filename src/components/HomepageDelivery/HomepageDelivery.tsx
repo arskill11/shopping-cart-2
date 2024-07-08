@@ -1,4 +1,4 @@
-import truckImg from '../../assets/deliveryTruck.png';
+import truckImg from '../../assets/images/deliveryTruck.png';
 import { StyledDelivery } from './HomepageDelivery.styles';
 
 export const HomepageDelivery = () => {

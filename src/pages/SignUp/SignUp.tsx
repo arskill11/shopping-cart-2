@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Form, LogInAnnotation } from './SignUp.styles';
-import { createUser } from '../../api/auth';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { getTokens } from '../../store/auth/auth.slice';
-import { NewUser } from './types';
+import {
+  useCreateUserMutation,
+  useGetTokensMutation,
+} from '../../store/api/api.slice';
+import { saveTokens } from '../../store/auth/auth.slice';
+import { DEFAULT_AVATAR } from '../../shared/constants/constants';
+
+const initialLogInPayload = {
+  email: '',
+  password: '',
+};
 
 export const SignUp = () => {
   const [name, setName] = useState('');
@@ -13,12 +21,27 @@ export const SignUp = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch<AppDispatch>();
+  const [createUser, { data: userData = initialLogInPayload, isSuccess }] =
+    useCreateUserMutation();
+  const [getTokens] = useGetTokensMutation();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newUser: NewUser = await createUser({ name, email, password });
-    dispatch(getTokens({ email: newUser.email, password: newUser.password }));
+    await createUser({
+      name: name,
+      email: email,
+      password: password,
+      avatar: DEFAULT_AVATAR,
+    });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      getTokens({ email: userData.email, password: userData.password })
+        .unwrap()
+        .then((tokens) => dispatch(saveTokens(tokens)));
+    }
+  }, [isSuccess]);
 
   return (
     <Container>
