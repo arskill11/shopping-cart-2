@@ -7,7 +7,12 @@ export const StyledShopPage = styled.div`
   div.shop {
     min-height: 15vh;
     font-size: 50px;
+    gap: 20px;
     background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
   }
 
   div.shop > h2 {
@@ -58,10 +63,11 @@ export const SearchBar = styled.form`
   padding-right: 35px;
 
   input {
+    max-width: 600px;
     padding: 10px;
     font-size: 25px;
     border: none;
-    background-color: rgb(232, 232, 232);
+    background-color: white;
     border-radius: 15px 0 0 15px;
     flex-shrink: 1;
   }
@@ -69,7 +75,7 @@ export const SearchBar = styled.form`
   button {
     float: right;
     padding: 15px;
-    background: #ddd;
+    background-color: darkgray;
     font-size: 20px;
     border: none;
     cursor: pointer;
@@ -78,7 +84,7 @@ export const SearchBar = styled.form`
   }
 
   button:hover {
-    background-color: #ccc;
+    background-color: gray;
   }
 
   @media (max-width: 600px) {

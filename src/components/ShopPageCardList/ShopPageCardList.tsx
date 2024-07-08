@@ -4,7 +4,7 @@ import {
   StyledPagination,
 } from './ShopPageCardList.styles';
 import { ShopPageCard } from '../ShopPageCard';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { useGetAllProductsQuery } from '../../store/api/api.slice';
@@ -12,14 +12,17 @@ import { saveProducts } from '../../store/shopProducts/shopProducts.slice';
 import ReactPaginate from 'react-paginate';
 import { PRODUCTS_PER_PAGE } from '../../shared/constants/constants';
 import { EventType } from './types';
+import { useOutletContext } from 'react-router-dom';
+import usePaginatedProducts from '../../shared/hooks/usePaginatedProducts';
 
 export const Cards = () => {
   const { data: products = [], isLoading } = useGetAllProductsQuery('');
+  const search: string = useOutletContext();
 
-  const [productsOffset, setProductOffset] = useState(0);
-  const endOffset = productsOffset + PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(productsOffset, endOffset);
-  const pageCount = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+  const [currentProducts, setProductOffset, pageCount] = usePaginatedProducts(
+    products,
+    search,
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
