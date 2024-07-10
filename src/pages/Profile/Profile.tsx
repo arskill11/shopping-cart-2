@@ -4,26 +4,24 @@ import { useEffect, useState } from 'react';
 import { logOut } from '../../store/auth/auth.slice';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button,
+  ButtonContainer,
   Container,
+  GreenButton,
   LoadingPage,
-  LogOutButton,
+  RedButton,
   ProfileInfo,
   ProfilePicture,
+  ValidationMessage,
 } from './Profile.styles';
-import { EditMode, User } from './types';
+import { ProfileFormFields, User } from './types';
 import { clearCart } from '../../store/cartProducts/cartProducts.slice';
 import {
   useGetUserWithSessionQuery,
   useUpdateUserMutation,
 } from '../../store/api/api.slice';
-
-const initialEditMode: EditMode = {
-  name: false,
-  email: false,
-  password: false,
-  avatar: false,
-};
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { validateEmail } from '../../shared/helpers/formValidators';
+import { removeAccessTokenFromLocalStorage } from '../../shared/helpers/utility';
 
 const initialUser: User = {
   id: 0,
@@ -45,12 +43,16 @@ export const Profile = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<User>();
-  const [editMode, setEditMode] = useState(initialEditMode);
-  const [inputValue, setInputValue] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProfileFormFields>();
+
+  const [user, setUser] = useState<User>(initialUser);
+  const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
-    console.log(access_token);
     setUser(currentUser);
   }, [isLoading]);
 
@@ -58,35 +60,25 @@ export const Profile = () => {
     dispatch(logOut());
     dispatch(clearCart());
     navigate('/');
+    removeAccessTokenFromLocalStorage();
   }
 
-  async function handleChange(property: string) {
+  const onSubmit: SubmitHandler<ProfileFormFields> = async (data) => {
     await updateUser({
       id: user!.id,
-      property: property,
-      value: inputValue,
+      properties: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        avatar: data.avatar,
+      },
     })
       .unwrap()
-      .then((newUser) => {
+      .then((newUser: User) => {
         setUser(newUser);
-        setEditMode({ ...editMode, [property]: false });
-        setInputValue('');
+        setIsEditable(false);
       });
-  }
-
-  function handleModeChange(property: string) {
-    const newMode = { ...editMode };
-    for (const key in editMode) {
-      newMode[key as keyof EditMode] = false;
-    }
-    newMode[property as keyof EditMode] = true;
-    console.log(newMode);
-    setEditMode(newMode);
-  }
-
-  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value);
-  }
+  };
 
   if (isLoading) {
     return (
@@ -97,97 +89,122 @@ export const Profile = () => {
   }
 
   return (
-    <Container>
+    <Container onSubmit={handleSubmit(onSubmit)}>
       <ProfilePicture>
         <img src={user?.avatar} alt="Profile Picture" />
-        {!editMode.avatar ? (
-          <Button
-            onClick={() => {
-              setInputValue(user!.avatar);
-              handleModeChange('avatar');
-            }}
-          >
-            Change Avatar
-          </Button>
-        ) : (
-          <>
-            <div className="avatarEdit">
-              <label htmlFor="avatar">New Avatar URL</label>
-              <input
-                type="text"
-                onChange={handleInput}
-                defaultValue={user?.avatar}
-              />
-            </div>
-            <Button onClick={() => handleChange('avatar')}>Submit</Button>
-          </>
-        )}
       </ProfilePicture>
       <ProfileInfo>
         <div>
           <label htmlFor="name">Name:</label>
-          {!editMode.name ? (
-            <div className="info">
+          <div className="info">
+            {!isEditable ? (
               <p>{user?.name}</p>
-              <Button
-                onClick={() => {
-                  setInputValue(user!.name);
-                  handleModeChange('name');
-                }}
-              >
-                Change Name
-              </Button>
-            </div>
-          ) : (
-            <div className="edit">
-              <input defaultValue={user?.name} onChange={handleInput} />
-              <Button onClick={() => handleChange('name')}>Submit</Button>
-            </div>
-          )}
+            ) : (
+              <>
+                {' '}
+                <input
+                  {...register('name', {
+                    required: 'Name is required',
+                    minLength: {
+                      value: 2,
+                      message: 'Name must be at least 2 characters',
+                    },
+                  })}
+                  defaultValue={user?.name}
+                  minLength={2}
+                />
+                {errors.name && (
+                  <ValidationMessage>{errors.name.message}</ValidationMessage>
+                )}
+              </>
+            )}
+          </div>
         </div>
+
         <div>
           <label htmlFor="email">Email:</label>
-          {!editMode.email ? (
-            <div className="info">
+          <div className="info">
+            {!isEditable ? (
               <p>{user?.email}</p>
-              <Button
-                onClick={() => {
-                  setInputValue(user!.email);
-                  handleModeChange('email');
-                }}
-              >
-                Change Email
-              </Button>
-            </div>
-          ) : (
-            <div className="edit">
-              <input defaultValue={user?.email} onChange={handleInput} />
-              <Button onClick={() => handleChange('email')}>Submit</Button>
-            </div>
-          )}
+            ) : (
+              <>
+                <input
+                  {...register('email', {
+                    required: 'Email is required',
+                    validate: (value) => validateEmail(value),
+                  })}
+                  defaultValue={user?.email}
+                />
+                {errors.email && (
+                  <ValidationMessage>{errors.email.message}</ValidationMessage>
+                )}
+              </>
+            )}
+          </div>
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          {!editMode.password ? (
-            <div className="info">
+          <div className="info">
+            {!isEditable ? (
               <p>{user?.password}</p>
-              <Button
-                onClick={() => {
-                  setInputValue(user!.password);
-                  handleModeChange('password');
-                }}
-              >
-                Change Password
-              </Button>
-            </div>
-          ) : (
-            <div className="edit">
-              <input defaultValue={user?.password} onChange={handleInput} />
-              <Button onClick={() => handleChange('password')}>Submit</Button>
-            </div>
-          )}
+            ) : (
+              <>
+                <input
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Password must be at least 4 characters',
+                    },
+                  })}
+                  defaultValue={user?.password}
+                  minLength={5}
+                />
+                {errors.password && (
+                  <ValidationMessage>
+                    {errors.password.message}
+                  </ValidationMessage>
+                )}
+              </>
+            )}
+          </div>
         </div>
-        <LogOutButton onClick={handleLogOut}>Log Out</LogOutButton>
+        {isEditable && (
+          <div>
+            <label htmlFor="avatar">New Avatar URL</label>
+            <div className="info">
+              <input
+                {...register('avatar', {
+                  required: 'Avatar URL is required',
+                })}
+                type="text"
+                defaultValue={user?.avatar}
+              />
+            </div>
+          </div>
+        )}
+
+        <ButtonContainer>
+          {isEditable ? (
+            <>
+              <GreenButton key="1" type="submit">
+                Submit
+              </GreenButton>
+              <RedButton key="2" onClick={() => setIsEditable(false)}>
+                Cancel
+              </RedButton>
+            </>
+          ) : (
+            <>
+              <GreenButton key="3" onClick={() => setIsEditable(true)}>
+                Edit
+              </GreenButton>
+              <RedButton key="4" onClick={handleLogOut}>
+                Log Out
+              </RedButton>
+            </>
+          )}
+        </ButtonContainer>
       </ProfileInfo>
     </Container>
   );

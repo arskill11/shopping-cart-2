@@ -67,3 +67,8 @@ export const LogInAnnotation = styled.div`
   gap: 10px;
   font-size: 25px;
 `;
+
+export const ValidationMessage = styled.p`
+  font-size: 18px;
+  color: darkred;
+`;

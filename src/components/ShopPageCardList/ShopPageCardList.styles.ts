@@ -37,6 +37,13 @@ export const LoadingPage = styled.div`
   }
 `;
 
+export const NothingFoundPage = styled(LoadingPage)`
+  h3 {
+    font-size: 45px;
+    font-weight: bold;
+  }
+`;
+
 export const StyledPagination = styled.div`
   margin-top: 70px;
 

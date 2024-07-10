@@ -6,3 +6,9 @@ export interface NewUser {
   role: string;
   id: number;
 }
+
+export interface SignupFormFields {
+  name: string;
+  email: string;
+  password: string;
+}

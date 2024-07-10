@@ -1,5 +1,6 @@
 import {
   LoadingPage,
+  NothingFoundPage,
   StyledCards,
   StyledPagination,
 } from './ShopPageCardList.styles';
@@ -48,21 +49,30 @@ export const Cards = () => {
 
   return (
     <StyledCards>
-      <div className="goods">
-        {currentProducts.map((product) => {
-          const fixedImageUrl = product.images[0].replaceAll(/[\[\]'",]/g, '');
-          return (
-            <ShopPageCard
-              key={product.id}
-              image={fixedImageUrl}
-              title={product.title}
-              price={product.price}
-              id={product.id}
-              category={product.category.name}
-            />
-          );
-        })}
-      </div>
+      {currentProducts.length ? (
+        <div className="goods">
+          {currentProducts.map((product) => {
+            const fixedImageUrl = product.images[0].replaceAll(
+              /[\[\]'",]/g,
+              '',
+            );
+            return (
+              <ShopPageCard
+                key={product.id}
+                image={fixedImageUrl}
+                title={product.title}
+                price={product.price}
+                id={product.id}
+                category={product.category.name}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <NothingFoundPage>
+          <h3>There are no such products...</h3>
+        </NothingFoundPage>
+      )}
       <StyledPagination>
         <ReactPaginate
           breakLabel="..."

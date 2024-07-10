@@ -67,3 +67,16 @@ export const SignUpAnnotation = styled.div`
   gap: 10px;
   font-size: 25px;
 `;
+
+export const ValidationMessage = styled.p`
+  font-size: 18px;
+  color: darkred;
+`;
+
+export const AuthorizationError = styled.h3`
+  font-size: 25px;
+  background-color: lightgray;
+  color: darkred;
+  margin: 0 auto;
+  font-weight: bold;
+`;

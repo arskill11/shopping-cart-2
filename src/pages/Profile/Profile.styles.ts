@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.form`
   height: 90vh;
   background-color: #f5f5f5;
   border-radius: 4px;
@@ -26,21 +26,6 @@ export const ProfilePicture = styled.div`
   button {
     flex: 0;
   }
-
-  .avatarEdit {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .avatarEdit > label {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .avatarEdit > input {
-    padding: 10px;
-    font-size: 20px;
-  }
 `;
 
 export const ProfileInfo = styled.div`
@@ -53,11 +38,11 @@ export const ProfileInfo = styled.div`
     margin-bottom: 10px;
   }
 
-  div.info,
-  div.edit {
+  div.info {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-flow: column;
+    gap: 6px;
   }
 
   label {
@@ -68,8 +53,12 @@ export const ProfileInfo = styled.div`
     font-size: 45px;
     font-weight: bold;
   }
-  div.edit > input {
+  div.info > input {
     font-size: 30px;
+    padding: 5px;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid gray;
   }
 `;
 
@@ -90,16 +79,28 @@ export const Button = styled.button`
   }
 `;
 
-export const LogOutButton = styled(Button)`
-  margin-top: 80px;
-  flex-basis: 0;
+export const RedButton = styled(Button)`
   background-color: darkred;
   font-size: 20px;
   font-weight: bold;
+  width: 500px;
 
   &:hover {
     background-color: red;
   }
+`;
+
+export const GreenButton = styled(RedButton)`
+  background-color: darkgreen;
+
+  &:hover {
+    background-color: green;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 100px;
 `;
 
 export const LoadingPage = styled.div`
@@ -112,5 +113,12 @@ export const LoadingPage = styled.div`
   h2 {
     font-size: 40px;
     font-weight: bold;
+  }
+`;
+
+export const ValidationMessage = styled.p`
+  && {
+    font-size: 25px;
+    color: darkred;
   }
 `;

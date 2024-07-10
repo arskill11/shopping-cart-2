@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Container, Form, LogInAnnotation } from './SignUp.styles';
+import { useEffect } from 'react';
+import {
+  Button,
+  Container,
+  Form,
+  LogInAnnotation,
+  ValidationMessage,
+} from './SignUp.styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
@@ -7,8 +13,11 @@ import {
   useCreateUserMutation,
   useGetTokensMutation,
 } from '../../store/api/api.slice';
-import { saveTokens } from '../../store/auth/auth.slice';
+import { TokensPayload, saveTokens } from '../../store/auth/auth.slice';
 import { DEFAULT_AVATAR } from '../../shared/constants/constants';
+import { SignupFormFields } from './types';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { validateEmail } from '../../shared/helpers/formValidators';
 
 const initialLogInPayload = {
   email: '',
@@ -16,21 +25,22 @@ const initialLogInPayload = {
 };
 
 export const SignUp = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormFields>();
 
   const dispatch = useDispatch<AppDispatch>();
   const [createUser, { data: userData = initialLogInPayload, isSuccess }] =
     useCreateUserMutation();
   const [getTokens] = useGetTokensMutation();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<SignupFormFields> = async (data) => {
     await createUser({
-      name: name,
-      email: email,
-      password: password,
+      name: data.name,
+      email: data.email,
+      password: data.password,
       avatar: DEFAULT_AVATAR,
     });
   };
@@ -39,40 +49,61 @@ export const SignUp = () => {
     if (isSuccess) {
       getTokens({ email: userData.email, password: userData.password })
         .unwrap()
-        .then((tokens) => dispatch(saveTokens(tokens)));
+        .then((tokens: TokensPayload) => dispatch(saveTokens(tokens)));
     }
   }, [isSuccess]);
 
   return (
     <Container>
       <h2>Sign Up</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="name">Name:</label>
           <input
+            {...register('name', {
+              required: 'Name is required',
+              minLength: {
+                value: 2,
+                message: 'Name must be at least 2 characters',
+              },
+            })}
             type="text"
             id="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
           />
+          {errors.name && (
+            <ValidationMessage>{errors.name.message}</ValidationMessage>
+          )}
         </div>
         <div>
           <label htmlFor="email">Email:</label>
           <input
-            type="email"
+            {...register('email', {
+              required: 'Email is required',
+              validate: (value) => validateEmail(value),
+            })}
+            type="text"
             id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
+          {errors.email && (
+            <ValidationMessage>{errors.email.message}</ValidationMessage>
+          )}
         </div>
         <div>
           <label htmlFor="password">Password:</label>
           <input
+            {...register('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 4,
+                message: 'Password must be at least 4 characters',
+              },
+            })}
             type="password"
             id="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
           />
+          {errors.password && (
+            <ValidationMessage>{errors.password.message}</ValidationMessage>
+          )}
         </div>
         <Button type="submit">Submit</Button>
       </Form>

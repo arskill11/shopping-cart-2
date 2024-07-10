@@ -31,9 +31,12 @@ const authSlice = createSlice({
       state.refresh_token = action.payload.refresh_token;
       state.isAuthorized = true;
     },
+    authorize: (state) => {
+      state.isAuthorized = true;
+    },
   },
 });
 
-export const { logOut, saveTokens } = authSlice.actions;
+export const { logOut, saveTokens, authorize } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -25,10 +25,16 @@ interface Tokens {
   refresh_token: string;
 }
 
+interface UpdateUserBodyPayload {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+}
+
 interface UpdateUserPayload {
   id: number;
-  property: string;
-  value: string;
+  properties: UpdateUserBodyPayload;
 }
 
 export const fakeshopApi = createApi({
@@ -82,9 +88,7 @@ export const fakeshopApi = createApi({
         return {
           url: `users/${data.id}`,
           method: 'PUT',
-          body: {
-            [data.property]: data.value,
-          },
+          body: data.properties,
           headers: { 'Content-Type': 'application/json' },
         };
       },

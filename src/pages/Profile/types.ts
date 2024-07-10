@@ -7,9 +7,9 @@ export interface User {
   avatar: string;
 }
 
-export interface EditMode {
-  name: boolean;
-  email: boolean;
-  password: boolean;
-  avatar: boolean;
+export interface ProfileFormFields {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
 }
