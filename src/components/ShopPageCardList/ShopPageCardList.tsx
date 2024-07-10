@@ -4,7 +4,7 @@ import {
   StyledCards,
   StyledPagination,
 } from './ShopPageCardList.styles';
-import { ShopPageCard } from '../ShopPageCard';
+import { ShopPageCard } from '../ProductCard';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';

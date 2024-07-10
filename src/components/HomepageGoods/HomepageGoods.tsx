@@ -1,5 +1,5 @@
 import { LoadingPage, StyledGoods } from './HomepageGoods.styles';
-import { ShopPageCard } from '../ShopPageCard';
+import { ShopPageCard } from '../ProductCard';
 import { useGetHomepageProductsQuery } from '../../store/api/api.slice';
 
 export const HomepageGoods = () => {

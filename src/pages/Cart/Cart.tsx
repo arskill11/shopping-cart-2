@@ -1,10 +1,11 @@
-import { CartCard } from '../../components/CartCard';
 import { SendingPage, StyledCart } from './Cart.styles';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { clearCart } from '../../store/cartProducts/cartProducts.slice';
 import { CartData } from '../../shared/types/types';
+import { ShopPageCard } from '../../components/ProductCard';
+import { ProductCardButtons } from '../../components/ProductCardButtons';
 
 export const Cart = () => {
   const cartProducts: CartData[] = useSelector(
@@ -35,14 +36,19 @@ export const Cart = () => {
         {cartProducts.map((product) => {
           const fixedImageUrl = product.images[0].replaceAll(/[\[\],]/g, '');
           return (
-            <CartCard
+            <ShopPageCard
               key={product.title}
               image={fixedImageUrl}
               title={product.title}
               price={product.price}
               category={product.category.name}
               id={product.id}
-              quantity={product.quantity}
+              render={() => (
+                <ProductCardButtons
+                  id={product.id}
+                  quantity={product.quantity}
+                />
+              )}
             />
           );
         })}
