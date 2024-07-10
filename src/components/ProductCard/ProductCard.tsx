@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { StyledCard, CardWrapper } from './ProductCard.styles';
+import { StyledCard } from './ProductCard.styles';
 import { Props } from './types';
 
 export const ShopPageCard = ({
@@ -11,19 +11,6 @@ export const ShopPageCard = ({
   render,
 }: Props) => {
   return (
-    // <CardWrapper>
-    //   <Link to={`/product/${id}`} data-testid={id}>
-    //     <StyledCard>
-    //       <div>
-    //         <img src={image} alt="" />
-    //       </div>
-    //       <h3>{title}</h3>
-    //       <p className="price">$ {price}</p>
-    //       <p>{category}</p>
-    //     </StyledCard>
-    //   </Link>
-    //   {render && render()}
-    // </CardWrapper>
     <StyledCard
       className={typeof render === 'undefined' ? 'shopCard' : 'cartCard'}
     >
