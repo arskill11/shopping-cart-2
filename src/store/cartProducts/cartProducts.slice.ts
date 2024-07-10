@@ -21,35 +21,25 @@ const cartProductsSlice = createSlice({
       return state;
     },
     deleteProduct: (state, action: PayloadAction<number>) => {
-      state.forEach((product, index) => {
-        if (product.id === action.payload) {
-          state.splice(index, 1);
-        }
-      });
+      const index = state.findIndex((product) => product.id === action.payload);
+      state.splice(index, 1);
     },
     changeQuantity: (
       state,
       action: PayloadAction<{ id: number; quantity: number }>,
     ) => {
-      state.forEach((product) => {
-        if (product.id === action.payload.id) {
-          product.quantity += action.payload.quantity;
-        }
-      });
+      const index = state.findIndex(
+        (product) => product.id === action.payload.id,
+      );
+      state[index].quantity += action.payload.quantity;
     },
     incrementQuantity: (state, action: PayloadAction<number>) => {
-      state.forEach((product) => {
-        if (product.id === action.payload) {
-          product.quantity += 1;
-        }
-      });
+      const index = state.findIndex((product) => product.id === action.payload);
+      state[index].quantity += 1;
     },
     decrementQuantity: (state, action: PayloadAction<number>) => {
-      state.forEach((product) => {
-        if (product.id === action.payload) {
-          product.quantity -= 1;
-        }
-      });
+      const index = state.findIndex((product) => product.id === action.payload);
+      state[index].quantity -= 1;
     },
   },
 });
