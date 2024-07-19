@@ -1,11 +1,12 @@
 import { SendingPage, StyledCart } from './Cart.styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { clearCart } from '../../store/cartProducts/cartProducts.slice';
 import { CartData } from '../../shared/types/types';
 import { ShopPageCard } from '../../components/ProductCard';
 import { ProductCardButtons } from '../../components/ProductCardButtons';
+import { fixImageUrl } from '../../shared/helpers/fixImageUrl';
 
 export const Cart = () => {
   const cartProducts: CartData[] = useSelector(
@@ -29,29 +30,25 @@ export const Cart = () => {
     dispatch(clearCart());
   }
 
+  useEffect(() => {}, [cartProducts]);
+
   return !isSent ? (
     <StyledCart>
       <h2>Your cart</h2>
       <div className="products">
-        {cartProducts.map((product) => {
-          const fixedImageUrl = product.images[0].replaceAll(/[\[\],]/g, '');
-          return (
-            <ShopPageCard
-              key={product.title}
-              image={fixedImageUrl}
-              title={product.title}
-              price={product.price}
-              category={product.category.name}
-              id={product.id}
-              render={() => (
-                <ProductCardButtons
-                  id={product.id}
-                  quantity={product.quantity}
-                />
-              )}
-            />
-          );
-        })}
+        {cartProducts.map((product) => (
+          <ShopPageCard
+            key={product.title}
+            image={fixImageUrl(product.images[0])}
+            title={product.title}
+            price={product.price}
+            category={product.category.name}
+            id={product.id}
+            render={() => (
+              <ProductCardButtons id={product.id} quantity={product.quantity} />
+            )}
+          />
+        ))}
       </div>
       {cartProducts.length > 0 ? (
         <div className="checkout">

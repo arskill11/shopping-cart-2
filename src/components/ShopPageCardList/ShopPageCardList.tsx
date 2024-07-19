@@ -15,6 +15,7 @@ import { PRODUCTS_PER_PAGE } from '../../shared/constants/constants';
 import { EventType } from './types';
 import { useOutletContext } from 'react-router-dom';
 import usePaginatedProducts from '../../shared/hooks/usePaginatedProducts';
+import { fixImageUrl } from '../../shared/helpers/fixImageUrl';
 
 export const Cards = () => {
   const { data: products = [], isLoading } = useGetAllProductsQuery('');
@@ -29,6 +30,7 @@ export const Cards = () => {
 
   useEffect(() => {
     dispatch(saveProducts(products));
+    // eslint-disable-next-line
   }, [isLoading]);
 
   const handlePageClick = (event: EventType) => {
@@ -51,22 +53,16 @@ export const Cards = () => {
     <StyledCards>
       {currentProducts.length ? (
         <div className="goods">
-          {currentProducts.map((product) => {
-            const fixedImageUrl = product.images[0].replaceAll(
-              /[\[\]'",]/g,
-              '',
-            );
-            return (
-              <ShopPageCard
-                key={product.id}
-                image={fixedImageUrl}
-                title={product.title}
-                price={product.price}
-                id={product.id}
-                category={product.category.name}
-              />
-            );
-          })}
+          {currentProducts.map((product) => (
+            <ShopPageCard
+              key={product.id}
+              image={fixImageUrl(product.images[0])}
+              title={product.title}
+              price={product.price}
+              id={product.id}
+              category={product.category.name}
+            />
+          ))}
         </div>
       ) : (
         <NothingFoundPage>

@@ -45,6 +45,7 @@ export const StyledCard = styled.div`
 
   img {
     width: 150px;
+    max-height: 150px;
   }
 
   h3 {

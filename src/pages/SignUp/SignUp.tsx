@@ -51,6 +51,7 @@ export const SignUp = () => {
         .unwrap()
         .then((tokens: TokensPayload) => dispatch(saveTokens(tokens)));
     }
+    // eslint-disable-next-line
   }, [isSuccess]);
 
   return (

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
-import { getAccessTokenFromLocalStorage } from './shared/helpers/utility';
+import { getAccessTokenFromLocalStorage } from './shared/helpers/localStorageManaging';
 import { authorize, saveTokens } from './store/auth/auth.slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './store/store';

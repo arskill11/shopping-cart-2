@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { StyledCard } from './ProductCard.styles';
 import { Props } from './types';
+import { reduceTitle } from '../../shared/helpers/utility';
 
 export const ShopPageCard = ({
   image,
@@ -10,6 +11,8 @@ export const ShopPageCard = ({
   id,
   render,
 }: Props) => {
+  title = reduceTitle(title);
+
   return (
     <StyledCard
       className={typeof render === 'undefined' ? 'shopCard' : 'cartCard'}

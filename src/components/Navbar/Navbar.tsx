@@ -24,6 +24,7 @@ export const Navbar = () => {
     if (isAuthorized) {
       navigate('/shop');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthorized]);
 
   return (

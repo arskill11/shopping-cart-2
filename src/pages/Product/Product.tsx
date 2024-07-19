@@ -15,6 +15,7 @@ import {
 import { useState } from 'react';
 import { CartData, ProductData } from '../../shared/types/types';
 import { useGetProductByIdQuery } from '../../store/api/api.slice';
+import { fixImageUrl } from '../../shared/helpers/fixImageUrl';
 
 const initialProduct: ProductData = {
   id: 0,
@@ -91,7 +92,7 @@ export const Product = () => {
     <StyledProduct>
       <div className="product" key={product.title}>
         <div className="image">
-          <img src={product.images[0].replaceAll(/[\[\]'",]/g, '')} alt="" />
+          <img src={fixImageUrl(product.images[0])} alt="" />
         </div>
         <h3>{product.title}</h3>
         <p>USD {product.price}</p>

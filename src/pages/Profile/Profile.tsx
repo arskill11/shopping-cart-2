@@ -21,7 +21,7 @@ import {
 } from '../../store/api/api.slice';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validateEmail } from '../../shared/helpers/formValidators';
-import { removeAccessTokenFromLocalStorage } from '../../shared/helpers/utility';
+import { removeAccessTokenFromLocalStorage } from '../../shared/helpers/localStorageManaging';
 
 const initialUser: User = {
   id: 0,
@@ -54,6 +54,7 @@ export const Profile = () => {
 
   useEffect(() => {
     setUser(currentUser);
+    // eslint-disable-next-line
   }, [isLoading]);
 
   function handleLogOut() {

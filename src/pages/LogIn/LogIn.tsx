@@ -15,7 +15,7 @@ import { useGetTokensMutation } from '../../store/api/api.slice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginFormFields } from './types';
 import { validateEmail } from '../../shared/helpers/formValidators';
-import { setAccessTokenToLocalStorage } from '../../shared/helpers/utility';
+import { setAccessTokenToLocalStorage } from '../../shared/helpers/localStorageManaging';
 
 export const LogIn = () => {
   const {

@@ -1,6 +1,7 @@
 import { LoadingPage, StyledGoods } from './HomepageGoods.styles';
 import { ShopPageCard } from '../ProductCard';
 import { useGetHomepageProductsQuery } from '../../store/api/api.slice';
+import { fixImageUrl } from '../../shared/helpers/fixImageUrl';
 
 export const HomepageGoods = () => {
   const { data: products = [], isLoading } = useGetHomepageProductsQuery('');
@@ -20,7 +21,7 @@ export const HomepageGoods = () => {
         {products.map((product) => (
           <ShopPageCard
             key={product.id}
-            image={product.images[0].replaceAll(/[\[\]'",]/g, '')}
+            image={fixImageUrl(product.images[0])}
             title={product.title}
             price={product.price}
             category={product.category.name}

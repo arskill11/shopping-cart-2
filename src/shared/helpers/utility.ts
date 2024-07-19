@@ -10,19 +10,12 @@ export function checkDuplication(array: CartData[], product: CartData) {
   }
 }
 
-export function getAccessTokenFromLocalStorage() {
-  let result: string | null = null;
+export function reduceTitle(title: string) {
+  if (title.split(' ').length > 10) {
+    const unwantedCharsQuantity = title.split(' ').length - 10;
+    const newTitle = title.split(' ').slice(unwantedCharsQuantity).join(' ');
+    title = newTitle;
+  }
 
-  const storedToken = localStorage.getItem('access_token');
-  storedToken && (result = JSON.parse(storedToken));
-
-  return result;
-}
-
-export function setAccessTokenToLocalStorage(access_token: string) {
-  localStorage.setItem('access_token', JSON.stringify(access_token));
-}
-
-export function removeAccessTokenFromLocalStorage() {
-  localStorage.removeItem('access_token');
+  return title;
 }
