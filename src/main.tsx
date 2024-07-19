@@ -15,11 +15,15 @@ const Global = createGlobalStyle`
 }
 `;
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Global />
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>,
-);
+export const MainComponent = () => {
+  return (
+    <React.StrictMode>
+      <Global />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </React.StrictMode>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<MainComponent />);
