@@ -10,8 +10,3 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
-      - name: Approve Pull Request
-        uses: ./
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: 1
